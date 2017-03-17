@@ -25,4 +25,11 @@ module.exports = {
         path: 'dist/',
         filename: 'app.bundle.js'
     },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false,
+            },
+        }),
+    ],
 }
