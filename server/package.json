@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "Chartreux server",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register",
+    "start": "nodemon src/index.js --exec babel-node",
+    "prebuild": "rm -rf dist/*",
+    "build": "babel src -d dist",
+    "preserve": "npm build",
+    "serve": "node dist/index.js"
+  },
+  "author": "Elliot Bonneville",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.24.0",
+    "mocha": "^3.2.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "Chartreux server",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Elliot Bonneville",
+  "license": "UNLICENSED"
+}
