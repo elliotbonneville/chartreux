@@ -6,7 +6,6 @@
   "dependencies": {
     "concurrently": "^3.4.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "concurrently --kill-others \"cd client; npm start\" \"cd server; npm start\""
   },
