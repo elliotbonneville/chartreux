@@ -1,8 +1,22 @@
-import http from 'http';
+import path from 'path';
 
-http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(8080, '127.0.0.1');
+import express from 'express';
 
-console.log('Server running at http://127.0.0.1:8080/');
+const app = express();
+
+app.use(
+    express.static(
+        path.join(__dirname, '../../client/dist/')
+    )
+);
+
+app.get('*', (req, res) => {
+    res.sendFile(
+        path.join( __dirname, '../../client/public', 'index.html')
+    );
+});
+
+app.listen(
+    '8080',
+    console.log.bind('Example app listening pon port 8080'),
+);

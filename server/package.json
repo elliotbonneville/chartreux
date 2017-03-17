@@ -2,7 +2,7 @@
   "name": "server",
   "version": "0.0.1",
   "description": "Chartreux server",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
     "start": "nodemon src/index.js --exec babel-node",
@@ -19,5 +19,9 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.24.0",
     "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "express": "^4.15.2",
+    "morgan": "^1.8.1"
   }
 }
