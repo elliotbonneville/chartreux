@@ -4,14 +4,14 @@ var webpack = require('webpack');
 module.exports = {
     devtool: 'source-map',
     entry: [
-        path.join(__dirname, 'src/index.js'),
+        path.join(__dirname, 'src/js/index.js'),
     ],
     module: {
         loaders: [
             {
                 loader: 'babel-loader',
                 include: [
-                    path.resolve(__dirname, 'src'),
+                    path.resolve(__dirname, 'src/js'),
                 ],
                 test: /\.jsx?$/,
                 query: {
