@@ -1,0 +1,23 @@
+{
+  "name": "chartreux",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "concurrently --kill-others \"cd client; npm start\" \"cd server; npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elliotbonneville/chartreux.git"
+  },
+  "author": "Elliot Bonneville",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/elliotbonneville/chartreux/issues"
+  },
+  "homepage": "https://github.com/elliotbonneville/chartreux#readme"
+}

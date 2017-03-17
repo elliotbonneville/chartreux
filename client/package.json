@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "prestart": "rm -rf dist",
     "start": "webpack --watch"
   },
   "dependencies": {
