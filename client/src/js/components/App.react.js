@@ -1,7 +1,9 @@
 import React from 'react';
 
+import Login from '~/views/login/Login.react';
+
 export default function App() {
     return (
-        <p>Hello world</p>
+        <Login />
     );
 }

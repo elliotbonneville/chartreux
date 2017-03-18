@@ -2,9 +2,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from '~/app';
+import '~/app';
+
+import App from '~/containers/app/App.react';
+
+import { browserHistory } from 'react-router';
+import makeRoutes from '~/routes.react';
+
+const routes = makeRoutes();
 
 ReactDOM.render(
-    <App />,
+    <App
+        history={browserHistory}
+        routes={routes}
+    />,
     document.getElementById('app'),
 );

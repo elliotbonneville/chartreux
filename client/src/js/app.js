@@ -5,5 +5,3 @@ import 'bootstrap/dist/js/bootstrap.min';
 import '~/bootstrap';
 
 import '../css/app.css';
-
-export default from '~/components/App.react';
