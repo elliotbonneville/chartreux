@@ -1,4 +1,5 @@
 module.exports = {
+    'root': true,
     'extends': 'airbnb',
     'parser': 'babel-eslint',
     'plugins': ['import'],
@@ -26,5 +27,8 @@ module.exports = {
             'nonEmpty': 'after-props',
             'selfClosing': 'tag-aligned',
         }],
+    },
+    'env': {
+        'browser': true,
     },
 }

@@ -1,6 +1,14 @@
 {
     "presets": ["es2015", "stage-0", "react"],
     "plugins": [
+        "transform-runtime",
+        "syntax-async-functions",
+        [
+            "transform-async-to-module-method", {
+                "module": "bluebird",
+                "method": "coroutine"
+            }
+        ],
         [
             "babel-root-import", {
                 "rootPathSuffix": "src/js"

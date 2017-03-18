@@ -9,20 +9,25 @@ module.exports = {
     module: {
         loaders: [
             {
-                loader: 'babel-loader',
-                include: [
-                    path.resolve(__dirname, 'src/js'),
-                ],
-                test: /\.jsx?$/,
-                query: {
-                    plugins: ['transform-runtime'],
-                    presets: ['es2015', 'stage-0', 'react'],
-                }
+                exclude: /node_modules/,
+                loaders: ['babel-loader', 'eslint-loader'],
+                test: /\.js$/,
             },
+            // {
+            //     loader: 'babel-loader',
+            //     include: [
+            //         path.resolve(__dirname, 'src/js'),
+            //     ],
+            //     test: /\.jsx?$/,
+            //     query: {
+            //         plugins: ['transform-runtime'],
+            //         presets: ['es2015', 'stage-0', 'react'],
+            //     }
+            // },
             {
                 test: /\.css$/,
                 include: /node_modules/,
-                loader: 'style-loader!css-loader'
+                loader: 'style-loader!css-loader',
             },
             {
                 test: /\.css$/,
@@ -36,15 +41,15 @@ module.exports = {
                         options: {
                             sourceMap: true,
                             importLoaders: 1,
-                        }
+                        },
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
                             sourceMap: 'inline',
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -56,19 +61,19 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                loader: 'svg-inline-loader'
-            }
+                loader: 'svg-inline-loader',
+            },
         ],
     },
     output: {
         path: 'dist/',
-        filename: 'app.bundle.js'
+        filename: 'app.bundle.js',
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
+                NODE_ENV: JSON.stringify('production'),
+            },
         }),
         new webpack.optimize.UglifyJsPlugin({
             compressor: {
@@ -78,7 +83,8 @@ module.exports = {
     ],
     resolve: {
         alias: {
-            jquery: "jquery/src/jquery"
-        }
-    }
-}
+            jquery: 'jquery/src/jquery',
+            '~': path.join(__dirname, './src/js'),
+        },
+    },
+};
