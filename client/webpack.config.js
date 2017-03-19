@@ -13,17 +13,6 @@ module.exports = {
                 loaders: ['babel-loader', 'eslint-loader'],
                 test: /\.js$/,
             },
-            // {
-            //     loader: 'babel-loader',
-            //     include: [
-            //         path.resolve(__dirname, 'src/js'),
-            //     ],
-            //     test: /\.jsx?$/,
-            //     query: {
-            //         plugins: ['transform-runtime'],
-            //         presets: ['es2015', 'stage-0', 'react'],
-            //     }
-            // },
             {
                 test: /\.css$/,
                 include: /node_modules/,
@@ -75,11 +64,11 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production'),
             },
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false,
-            },
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compressor: {
+        //         warnings: false,
+        //     },
+        // }),
     ],
     resolve: {
         alias: {
