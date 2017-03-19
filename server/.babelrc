@@ -1,4 +1,14 @@
 {
-  "presets": ["es2015", "stage-0"],
-  "plugins": []
+    "presets": ["es2015", "stage-0"],
+    "plugins": [
+        "transform-runtime",
+        "transform-class-properties",
+        "syntax-async-functions",
+        [
+            "transform-async-to-module-method", {
+                "module": "bluebird",
+                "method": "coroutine"
+            }
+        ]
+    ]
 }

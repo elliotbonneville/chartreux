@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Nav, NavItem } from 'react-bootstrap';
+
+import BetaTable from '~/views/home/BetaTable.react';
+import LinksTable from '~/views/home/LinksTable.react';
 
 import AuthService from '~/utils/AuthService';
+import socket from '~/utils/socket';
 
 export default class Home extends React.Component {
     static contextTypes = {
@@ -15,10 +19,16 @@ export default class Home extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            profile: {},
+            data: {
+                beta: [],
+                links: [],
+            },
+            tab: '1',
         };
-        props.auth.lock.getUserInfo(props.auth.getToken(), (error, profile) => {
-            this.setState({ profile });
+        socket.on('data', data => this.setState({ data }));
+        socket.emit('handshake', props.auth.getToken());
+        socket.on('handshake', () => {
+            socket.emit('request data');
         });
     }
 
@@ -27,12 +37,25 @@ export default class Home extends React.Component {
         this.context.router.push('/login');
     }
 
+    handleSelect = (eventKey) => {
+        event.preventDefault();
+        this.setState({
+            tab: eventKey,
+        });
+    };
+
     render() {
-        const { profile } = this.state;
+        const { data, tab } = this.state;
+
         return (
             <div>
                 <h2>Home</h2>
-                <p>Welcome {profile.name}!</p>
+                <Nav bsStyle="tabs" activeKey={tab} onSelect={this.handleSelect}>
+                    <NavItem eventKey="1">Beta</NavItem>
+                    <NavItem eventKey="2">Links</NavItem>
+                </Nav>
+                {tab === '1' ? <BetaTable data={data.beta} /> : null}
+                {tab === '2' ? <LinksTable data={data.links} /> : null}
                 <Button onClick={this.logout}>Logout</Button>
             </div>
         );
