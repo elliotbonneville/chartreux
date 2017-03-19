@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Router } from 'react-router';
 
-export default function App(props) {
+export default function AppContainer(props) {
     return (
         <div style={{ height: '100%' }}>
             <Router
@@ -12,11 +12,11 @@ export default function App(props) {
     );
 }
 
-App.contextTypes = {
+AppContainer.contextTypes = {
     router: PropTypes.object,
 };
 
-App.propTypes = {
+AppContainer.propTypes = {
     history: PropTypes.object.isRequired,
     routes: PropTypes.element.isRequired,
 };

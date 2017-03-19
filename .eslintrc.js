@@ -9,7 +9,7 @@ module.exports = {
         'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }],
         'import/no-webpack-loader-syntax': 'off',
         'no-underscore-dangle': 'off',
-        'react/jsx-filename-extension': ['error', { 'extensions': ['.react.js'] }],
+        'react/jsx-filename-extension': ['error', { 'extensions': ['.js'] }],
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
         'react/jsx-no-bind': ['error', {

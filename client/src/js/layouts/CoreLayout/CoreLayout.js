@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Jumbotron } from 'react-bootstrap';
 
-export default function Container(props) {
+export default function CoreLayout(props) {
     let children = null;
     if (props.children) {
         // sends auth instance to children
@@ -17,16 +17,16 @@ export default function Container(props) {
     );
 }
 
-Container.contextTypes = {
+CoreLayout.contextTypes = {
     router: PropTypes.object,
 };
 
-Container.propTypes = {
+CoreLayout.propTypes = {
     children: PropTypes.object,
     route: PropTypes.object,
 };
 
-Container.defaultProps = {
+CoreLayout.defaultProps = {
     children: {},
     route: {},
 };

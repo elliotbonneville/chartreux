@@ -28,8 +28,8 @@ export default class AuthService {
         this.lock.getUserInfo(accessToken, (error, profile) => {
             this.setProfile(profile);
 
-            // navigate to the home route
-            browserHistory.replace('/home');
+            // navigate to the projects route
+            browserHistory.replace('/projects');
         });
     }
 

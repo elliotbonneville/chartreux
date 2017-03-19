@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import AuthService from '~/utils/AuthService';
 import socket from '~/utils/socket';
 
-export default class Home extends React.Component {
+export default class Projects extends React.Component {
     static contextTypes = {
         router: PropTypes.object,
     }
@@ -38,7 +38,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-                <h2>Home</h2>
+                <h2>Projects</h2>
                 <Button onClick={this.logout}>Logout</Button>
             </div>
         );
