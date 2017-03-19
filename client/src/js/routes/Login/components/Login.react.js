@@ -1,10 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
-import AuthService from '~/utils/AuthService';
+import auth from '~/data/auth';
 
-export default function Login(props) {
-    const { auth } = props;
+export default function Login() {
     return (
         <div>
             <h2>Login</h2>
@@ -14,7 +13,3 @@ export default function Login(props) {
         </div>
     );
 }
-
-Login.propTypes = {
-    auth: PropTypes.instanceOf(AuthService).isRequired,
-};
