@@ -19,11 +19,18 @@ export default class AuthService {
     }
 
     _doAuthentication(authResult) {
-        // save the user token
-        this.setToken(authResult.accessToken);
+        const { accessToken } = authResult;
 
-        // navigate to the home route
-        browserHistory.replace('/home');
+        // save the user token
+        this.setToken(accessToken);
+
+        // save user profile
+        this.lock.getUserInfo(accessToken, (error, profile) => {
+            this.setProfile(profile);
+
+            // navigate to the home route
+            browserHistory.replace('/home');
+        });
     }
 
     login() {
@@ -39,8 +46,14 @@ export default class AuthService {
     // saves user token to local storage
     setToken = accessToken => localStorage.setItem('accessToken', accessToken);
 
+    // saves user profile to local storage as well
+    setProfile = profile => localStorage.setItem('userProfile', JSON.stringify(profile));
+
     // retrieves the user token from local storage
     getToken = () => localStorage.getItem('accessToken');
+
+    // retrieves user profile from local storage
+    getProfile = () => JSON.parse(localStorage.getItem('userProfile'));
 
     // clear user token and profile data from local storage
     logout = () => localStorage.removeItem('accessToken');

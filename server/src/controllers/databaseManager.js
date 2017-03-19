@@ -10,10 +10,17 @@ const connection = mysql.createConnection({
 connection.connect();
 
 const databaseManager = {
-    request: table => new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ${table}`, (error, results) => {
+    getProjects: userId => new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM projects WHERE user_id = ${userId}`, (error, results) => {
             if (error) reject(error);
-            resolve(results);
+            else resolve(results);
+        });
+    }),
+
+    getLinks: projectId => new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM links WHERE project_id = ${projectId}`, (error, results) => {
+            if (error) reject(error);
+            else resolve(results);
         });
     }),
 };
