@@ -2,11 +2,8 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 
-import socketManager from './controllers/socketManager';
-
 const app = express();
 const server = http.Server(app);
-socketManager.init(server);
 
 app.use(
     express.static(

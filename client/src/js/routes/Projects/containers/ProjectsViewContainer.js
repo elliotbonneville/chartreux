@@ -15,14 +15,14 @@ export default class ProjectsViewContainer extends React.Component {
         this.state = {
             projects: null,
         };
-        socket.on('data', data => this.setState({ data }));
-        socket.emit('handshake', auth.getToken());
-        socket.on('handshake', () => {
-            socket.emit('request data');
-        });
+        // socket.on('data', data => this.setState({ data }));
+        // socket.emit('handshake', auth.getToken());
+        // socket.on('handshake', () => {
+        //     socket.emit('request data');
+        // });
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         // request projects
         Promise.delay(100).then(() => this.setState({
             projects: 'hello world',
@@ -35,7 +35,6 @@ export default class ProjectsViewContainer extends React.Component {
     }
 
     render() {
-        console.log(this.state.projects);
         return (
             <ProjectsView
                 projects={this.state.projects}

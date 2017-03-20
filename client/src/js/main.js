@@ -1,5 +1,8 @@
 import '~/bootstrap';
 
+// Polyfill for Safari
+import 'whatwg-fetch';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
