@@ -1,34 +1,35 @@
 import React, { PropTypes } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Link } from 'react-router';
+import {
+    Button,
+    ListGroup,
+    ListGroupItem,
+    Grid,
+    Row,
+    Col,
+} from 'react-bootstrap';
 
 export default function ProjectsView(props) {
     const { projects } = props;
-    const columns = Object.keys(projects[0] || [])
-        .map((name, id) => ({ name, id }))
-        .filter(({ name }) => name !== 'user_id');
-
+    console.log(projects);
     return (
         <div>
-            <h2>Projects</h2>
-            <Table striped bordered condensed hover>
-                <thead>
-                    <tr>
-                        {columns.map(column =>
-                            <th key={column.id}>{column.name}</th>,
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {projects.map(project =>
-                        <tr key={project.id}>
-                            {columns.map(column =>
-                                <td key={column.id}>{project[column.name]}</td>,
+            <Grid>
+                <Row>
+                    <Col xs={6} md={4} />
+                    <Col xs={6} md={4}>
+                        <h2>Projects</h2>
+                        <ListGroup>
+                            {projects.map(project =>
+                                <ListGroupItem key={project.id}>
+                                    <Link to={`/projects/${project.id}`}>{project.project}</Link>
+                                </ListGroupItem>,
                             )}
-                        </tr>,
-                    )}
-                </tbody>
-            </Table>
-            <Button onClick={props.logout}>Logout</Button>
+                        </ListGroup>
+                        <Button onClick={props.logout}>Logout</Button>
+                    </Col>
+                </Row>
+            </Grid>
         </div>
     );
 }
