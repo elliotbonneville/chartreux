@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import socket from '~/utils/socket';
 import auth from '~/data/auth';
 
 import ProjectsView from '../components/ProjectsView';
@@ -13,20 +12,19 @@ export default class ProjectsViewContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            projects: null,
+            projects: [],
+            userId: auth.getProfile().sub,
         };
-        // socket.on('data', data => this.setState({ data }));
-        // socket.emit('handshake', auth.getToken());
-        // socket.on('handshake', () => {
-        //     socket.emit('request data');
-        // });
     }
 
     componentDidMount() {
-        // request projects
-        Promise.delay(100).then(() => this.setState({
-            projects: 'hello world',
-        }));
+        this.getProjects();
+    }
+
+    async getProjects() {
+        fetch(`${window.location.origin}/api/projects?userId=${this.state.userId}`)
+            .then((response => response.json()))
+            .then((projects => this.setState({ projects })));
     }
 
     logout = () => {

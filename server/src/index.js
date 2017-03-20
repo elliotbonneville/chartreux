@@ -2,6 +2,8 @@ import path from 'path';
 import express from 'express';
 import http from 'http';
 
+import apiRoutes from './controllers/api';
+
 const app = express();
 const server = http.Server(app);
 
@@ -10,6 +12,8 @@ app.use(
         path.join(__dirname, '../../client/dist/'),
     ),
 );
+
+app.use('/api', apiRoutes);
 
 app.get('*', (req, res) => {
     res.sendFile(
