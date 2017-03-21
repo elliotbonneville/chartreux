@@ -21,7 +21,7 @@ export default function ProjectsView(props) {
                         <ListGroup>
                             {projects.map(project =>
                                 <ListGroupItem key={project.id}>
-                                    <Link to={`/projects/${project.id}`}>{project.project}</Link>
+                                    <Link to={`/targets/${project.id}`}>{project.project}</Link>
                                 </ListGroupItem>,
                             )}
                         </ListGroup>
