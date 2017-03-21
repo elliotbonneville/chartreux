@@ -22,7 +22,6 @@ export default class LinksViewContainer extends React.Component {
     }
 
     async getLinks(projectId) {
-        console.log('Getting links for', projectId);
         fetch(`${window.location.origin}/api/links?projectId=${projectId}`)
             .then((response => response.json()))
             .then((links => this.setState({ links })));
