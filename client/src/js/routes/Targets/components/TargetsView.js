@@ -3,9 +3,6 @@ import { Link } from 'react-router';
 import {
     Button,
     Table,
-    Grid,
-    Row,
-    Col,
 } from 'react-bootstrap';
 
 export default function TargetsView(props) {
@@ -19,33 +16,26 @@ export default function TargetsView(props) {
 
     return (
         <div>
-            <Grid>
-                <Row>
-                    <Col xs={6} md={4}>
-                        <h2>Targets</h2>
-                        <Table striped bordered condensed hover>
-                            <thead>
-                                <tr>
-                                    {columns.map(column =>
-                                        <th key={column.id}>{column.name}</th>,
-                                    )}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {targets.map(target =>
-                                    <tr key={target.id}>
-                                        {columns.map(column =>
-                                            <td key={column.id}>{target[column.name]}</td>,
-                                        )}
-                                    </tr>,
-                                )}
-                            </tbody>
-                        </Table>
-                        <Button onClick={props.logout}>Logout</Button>
-                    </Col>
-                    <Col xs={6} md={4} />
-                </Row>
-            </Grid>
+            <h2>Targets</h2>
+            <Table striped bordered condensed hover>
+                <thead>
+                    <tr>
+                        {columns.map(column =>
+                            <th key={column.id}>{column.name}</th>,
+                        )}
+                    </tr>
+                </thead>
+                <tbody>
+                    {targets.map(target =>
+                        <tr key={target.id}>
+                            {columns.map(column =>
+                                <td key={column.id}>{target[column.name]}</td>,
+                            )}
+                        </tr>,
+                    )}
+                </tbody>
+            </Table>
+            <Button onClick={props.logout}>Logout</Button>
         </div>
     );
 }
