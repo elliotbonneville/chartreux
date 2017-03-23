@@ -1,18 +1,21 @@
 import React, { PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { Button, Table } from 'react-bootstrap';
 
-export default function LinksView(props, context) {
+export default function LinksView(props) {
     const { links } = props;
-    const columns = ['article_title', 'keyword_1', 'keyword_1_url', 'date_added']
+    const columns = ['keyword_1_url', 'article_title', 'keyword_1', 'date_added']
         .map((name, id) => ({ name, id }))
         .filter(({ name }) => name !== 'user_id');
 
-    console.log(browserHistory)
+    links.forEach(link => Object.assign(link, {
+        keyword_1_url: <Link to={`${window.location}/${link.id}`}>{link.keyword_1_url}</Link>,
+    }));
+
     return (
         <div>
             <h2>Links</h2>
-            <Table hover>
+            <Table>
                 <thead>
                     <tr>
                         {columns.map(column =>
@@ -22,12 +25,7 @@ export default function LinksView(props, context) {
                 </thead>
                 <tbody>
                     {links.map(link =>
-                        <tr
-                            key={link.id}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => browserHistory.push(
-                                `${window.location}/${link.id}`,
-                            )}>
+                        <tr key={link.id}>
                             {columns.map(column =>
                                 <td key={column.id}>{link[column.name]}</td>,
                             )}
