@@ -21,34 +21,10 @@ export default class TargetsViewContainer extends React.Component {
         this.getTargets(this.props.params.projectId);
     }
 
-    async getTargets(/* projectId */) {
-        // fetch(`${window.location.origin}/api/targets?projectId=${projectId}`)
-        //     .then((response => response.json()))
-        //     .then((targets => this.setState({ targets })));
-        Promise.delay(300).then(() => {
-            this.setState({
-                targets: [
-                    {
-                        id: 1,
-                        site_name: 'Oxbow SEO',
-                        url: 'http://oxbowseo.com',
-                        site_host: 'HostNine',
-                        site_type: 'Money',
-                        project_id: 6,
-                        description: 'A lovely site ranked in New England for Search Engine Optimization services.',
-                    },
-                    {
-                        id: 2,
-                        site_name: 'Oxbow SEO Facebook',
-                        url: 'https://facebook.com/oxbowseo',
-                        site_host: 'Facebook',
-                        site_type: 'Social',
-                        project_id: 6,
-                        description: 'Facebook page for Oxbow SEO.',
-                    },
-                ],
-            });
-        });
+    async getTargets(projectId) {
+        fetch(`${window.location.origin}/api/targets?projectId=${projectId}`)
+            .then((response => response.json()))
+            .then((targets => this.setState({ targets })));
     }
 
     logout = () => {
