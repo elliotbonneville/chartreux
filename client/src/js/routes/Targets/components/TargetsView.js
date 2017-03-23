@@ -10,7 +10,7 @@ export default function TargetsView(props) {
     const columns = Object.keys(targets[0] || []).map((name, id) => ({ name, id }));
     targets.forEach((target) => {
         Object.assign(target, {
-            site_name: <Link to={`/projects/${target.project_id}`}>{target.site_name}</Link>,
+            site_name: <Link to={`/projects/${target.project_id}/targets/${target.id}/links`}>{target.site_name}</Link>,
         });
     });
 

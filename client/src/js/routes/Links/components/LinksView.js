@@ -2,12 +2,13 @@ import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { Button, Table } from 'react-bootstrap';
 
-export default function LinksView(props) {
+export default function LinksView(props, context) {
     const { links } = props;
     const columns = ['article_title', 'keyword_1', 'date_added']
         .map((name, id) => ({ name, id }))
         .filter(({ name }) => name !== 'user_id');
 
+    console.log(browserHistory)
     return (
         <div>
             <h2>Links</h2>
@@ -24,7 +25,9 @@ export default function LinksView(props) {
                         <tr
                             key={link.id}
                             style={{ cursor: 'pointer' }}
-                            onClick={() => browserHistory.push(`/links/${link.id}`)}>
+                            onClick={() => browserHistory.push(
+                                `${window.location}/${link.id}`,
+                            )}>
                             {columns.map(column =>
                                 <td key={column.id}>{link[column.name]}</td>,
                             )}

@@ -18,11 +18,12 @@ export default class LinksViewContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getLinks(this.props.params.projectId);
+        console.log(this.props.params);
+        this.getLinks(this.props.params.targetId);
     }
 
-    async getLinks(projectId) {
-        fetch(`${window.location.origin}/api/links?projectId=${projectId}`)
+    async getLinks(targetId) {
+        fetch(`${window.location.origin}/api/links?targetId=${targetId}`)
             .then((response => response.json()))
             .then((links => this.setState({ links })));
     }

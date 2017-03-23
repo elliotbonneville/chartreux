@@ -9,7 +9,7 @@ const requireAuth = (nextState, replace) => {
 };
 
 export default {
-    path: '/projects/:projectId',
+    path: '/projects/:projectId/targets/:targetId/links',
     component: LinksViewContainer,
     onEnter: requireAuth,
 };
