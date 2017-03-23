@@ -17,7 +17,7 @@ export default function TargetsView(props) {
     return (
         <div>
             <h2>Targets</h2>
-            <Table striped bordered condensed hover>
+            <Table hover>
                 <thead>
                     <tr>
                         {columns.map(column =>
