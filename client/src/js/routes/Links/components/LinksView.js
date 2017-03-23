@@ -4,7 +4,7 @@ import { Button, Table } from 'react-bootstrap';
 
 export default function LinksView(props) {
     const { links } = props;
-    const columns = ['id', 'article_title', 'keyword_1', 'date_added']
+    const columns = ['article_title', 'keyword_1', 'date_added']
         .map((name, id) => ({ name, id }))
         .filter(({ name }) => name !== 'user_id');
 
