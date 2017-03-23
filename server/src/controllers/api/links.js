@@ -1,10 +1,17 @@
 import express from 'express';
 
-import { getAllByProject } from '../../models/link';
+import { getAllByProject, byId } from '../../models/link';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
-    const links = await getAllByProject(req.query.projectId);
+    let links;
+
+    if (req.query.projectId) {
+        links = await getAllByProject(req.query.projectId);
+    } else if (req.query.linkId) {
+        links = await byId(req.query.linkId);
+    }
+
     res.send(links);
 });
 

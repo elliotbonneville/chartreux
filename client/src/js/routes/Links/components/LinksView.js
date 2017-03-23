@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import { Button, Table } from 'react-bootstrap';
 
 export default function LinksView(props) {
     const { links } = props;
-    const columns = Object.keys(links[0] || [])
+    const columns = ['id', 'article_title', 'keyword_1', 'date_added']
         .map((name, id) => ({ name, id }))
         .filter(({ name }) => name !== 'user_id');
 
     return (
         <div>
             <h2>Links</h2>
-            <Table striped bordered condensed hover>
+            <Table striped hover>
                 <thead>
                     <tr>
                         {columns.map(column =>
@@ -20,7 +21,10 @@ export default function LinksView(props) {
                 </thead>
                 <tbody>
                     {links.map(link =>
-                        <tr key={link.id}>
+                        <tr
+                            key={link.id}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => browserHistory.push(`/links/${link.id}`)}>
                             {columns.map(column =>
                                 <td key={column.id}>{link[column.name]}</td>,
                             )}
