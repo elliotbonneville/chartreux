@@ -1,8 +1,10 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Button, Grid, Row } from 'react-bootstrap';
+
+import LinkProperty from './LinkProperty';
 
 export default function ExpandedLinkView(props) {
-    const { link } = props;
+    const { link, editing, modifyLink, toggleEditMode } = props;
     const fields = Object.keys(link);
     const columns = fields.reduce((acc, cur, i) => {
         if (i % 2 === 0) {
@@ -16,17 +18,24 @@ export default function ExpandedLinkView(props) {
     return (
         <div>
             <h2>{link.article_url}</h2>
+            <Button onClick={toggleEditMode}>
+                {editing ? 'Save' : 'Edit'}
+            </Button>
             <Grid>
                 {columns.map(colNames =>
                     <Row>
-                        <Col xs={12} md={6}>
-                            {colNames[0]}: {link[colNames[0]]}
-                        </Col>
-                        {colNames[1] ?
-                            <Col xs={12} md={6}>
-                                {colNames[1]}: {link[colNames[1]]}
-                            </Col>
-                        : null}
+                        <LinkProperty
+                            property={colNames[0]}
+                            value={link[colNames[0]]}
+                            editing={editing}
+                            modifyLink={modifyLink}
+                        />
+                        <LinkProperty
+                            property={colNames[1]}
+                            value={link[colNames[1]]}
+                            editing={editing}
+                            modifyLink={modifyLink}
+                        />
                     </Row>,
                 )}
             </Grid>

@@ -12,6 +12,7 @@ export default class ExpandedLinkViewContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            editing: false,
             link: null,
         };
     }
@@ -26,6 +27,14 @@ export default class ExpandedLinkViewContainer extends React.Component {
             .then((links => this.setState({ link: links[0] })));
     }
 
+    modifyLink = (property, value) => this.setState({
+        link: Object.assign(this.state.link, {
+            [property]: value,
+        }),
+    });
+
+    toggleEditMode = () => this.setState({ editing: !this.state.editing });
+
     logout = () => {
         auth.logout();
         this.context.router.push('/login');
@@ -39,6 +48,9 @@ export default class ExpandedLinkViewContainer extends React.Component {
                 <ExpandedLinkView
                     link={this.props.link || this.state.link}
                     logout={this.logout}
+                    editing={this.state.editing}
+                    toggleEditMode={this.toggleEditMode}
+                    modifyLink={this.modifyLink}
                 /> : null
         );
     }
