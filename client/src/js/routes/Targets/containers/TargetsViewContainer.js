@@ -34,10 +34,7 @@ export default class TargetsViewContainer extends React.Component {
 
     render() {
         return (
-            <TargetsView
-                targets={this.state.targets}
-                logout={this.logout}
-            />
+            <TargetsView targets={this.state.targets} logout={this.logout} />
         );
     }
 }

@@ -10,8 +10,10 @@ export default function TargetsView(props) {
     targets.forEach((target) => {
         Object.assign(target, {
             site_name: <Link to={`/projects/${target.project_id}/targets/${target.id}/links`}>{target.site_name}</Link>,
+            edit: <Link to={`/projects/${target.project_id}/targets/${target.id}`}>edit</Link>,
         });
     });
+    columns.push({ id: columns.length, name: 'edit' });
 
     return (
         <div>
