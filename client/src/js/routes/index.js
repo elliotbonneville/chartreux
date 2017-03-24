@@ -14,13 +14,13 @@ export const createRoutes = () => ({
         onEnter: (_, replaceState) => replaceState(null, '/projects'),
     },
     childRoutes: [
+        LoginRoute,
         ProjectViewRoute,
         ProjectsRoute,
-        LoginRoute,
+        LinkViewRoute,
         LinksRoute,
         TargetViewRoute,
         TargetsRoute,
-        LinkViewRoute,
     ],
 });
 

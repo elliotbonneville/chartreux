@@ -12,7 +12,7 @@ export default class ExpandedProjectViewContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            editing: false,
+            editing: this.props.location.query.editing || false,
             originalProject: null,
             project: null,
         };

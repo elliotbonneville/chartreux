@@ -12,7 +12,7 @@ export default class ExpandedLinkViewContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            editing: false,
+            editing: this.props.location.query.editing || false,
             originalLink: null,
             link: null,
         };

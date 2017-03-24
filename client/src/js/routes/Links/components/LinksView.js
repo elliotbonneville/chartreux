@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Button, Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+
+import RecordsTable from '~/components/RecordsTable';
 
 export default function LinksView(props) {
     const { links } = props;
@@ -8,31 +10,25 @@ export default function LinksView(props) {
         .map((name, id) => ({ name, id }))
         .filter(({ name }) => name !== 'user_id');
 
-    links.forEach(link => Object.assign(link, {
-        keyword_1_url: <Link to={`${window.location}/${link.id}`}>{link.keyword_1_url}</Link>,
-    }));
+    columns.push({ id: columns.length, name: 'edit' });
+
+    links.forEach((link) => {
+        const pathname = `${window.location.pathname}/${link.id}`;
+        const editDescriptor = {
+            pathname,
+            query: { editing: true },
+        };
+
+        Object.assign(link, {
+            keyword_1_url: <Link to={pathname}>{link.keyword_1_url}</Link>,
+            edit: <Link to={editDescriptor}>edit</Link>,
+        });
+    });
 
     return (
         <div>
             <h2>Links</h2>
-            <Table>
-                <thead>
-                    <tr>
-                        {columns.map(column =>
-                            <th key={column.id}>{column.name}</th>,
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {links.map(link =>
-                        <tr key={link.id}>
-                            {columns.map(column =>
-                                <td key={column.id}>{link[column.name]}</td>,
-                            )}
-                        </tr>,
-                    )}
-                </tbody>
-            </Table>
+            <RecordsTable columns={columns} records={links} />
             <Button onClick={props.logout}>Logout</Button>
         </div>
     );

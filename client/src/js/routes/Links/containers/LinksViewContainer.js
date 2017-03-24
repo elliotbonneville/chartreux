@@ -18,7 +18,6 @@ export default class LinksViewContainer extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.params);
         this.getLinks(this.props.params.targetId);
     }
 
@@ -36,6 +35,7 @@ export default class LinksViewContainer extends React.Component {
     render() {
         return (
             <LinksView
+                params={this.props.params}
                 links={this.state.links}
                 logout={this.logout}
             />
