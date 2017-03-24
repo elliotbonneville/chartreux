@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import {
-    Button,
-    Table,
-} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+
+import RecordsTable from '~/components/RecordsTable';
 
 export default function TargetsView(props) {
     const { targets } = props;
@@ -17,24 +16,7 @@ export default function TargetsView(props) {
     return (
         <div>
             <h2>Targets</h2>
-            <Table hover>
-                <thead>
-                    <tr>
-                        {columns.map(column =>
-                            <th key={column.id}>{column.name}</th>,
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {targets.map(target =>
-                        <tr key={target.id}>
-                            {columns.map(column =>
-                                <td key={column.id}>{target[column.name]}</td>,
-                            )}
-                        </tr>,
-                    )}
-                </tbody>
-            </Table>
+            <RecordsTable columns={columns} records={targets} />
             <Button onClick={props.logout}>Logout</Button>
         </div>
     );
