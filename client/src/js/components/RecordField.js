@@ -2,38 +2,38 @@ import React, { PropTypes } from 'react';
 
 import { Col } from 'react-bootstrap';
 
-export default function LinkProperty(props) {
+export default function RecordField(props) {
     const {
         editing,
         property,
         value,
-        modifyLink,
+        modifyRecord,
     } = props;
 
     if (typeof property === 'undefined') return null;
 
-    const onChange = event => modifyLink(property, event.target.value);
+    const onChange = event => modifyRecord(property, event.target.value);
 
     const valueComponent = editing
         ? <input type="text" value={value} onChange={onChange} />
         : value;
 
     return (
-        <Col xs={12} md={6}>
-            {property}: {valueComponent}
+        <Col xs={12} md={6} style={{ height: 35 }}>
+            <strong>{property}</strong>: {valueComponent}
         </Col>
     );
 }
 
-LinkProperty.propTypes = {
+RecordField.propTypes = {
     editing: PropTypes.bool,
     property: PropTypes.string.isRequired,
     value: PropTypes.string,
-    modifyLink: PropTypes.func,
+    modifyRecord: PropTypes.func,
 };
 
-LinkProperty.defaultProps = {
+RecordField.defaultProps = {
     editing: false,
     value: '',
-    modifyLink: () => {},
+    modifyRecord: () => {},
 };

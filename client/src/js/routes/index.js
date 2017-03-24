@@ -3,7 +3,7 @@ import ProjectsRoute from '~/routes/Projects';
 import LoginRoute from '~/routes/Login';
 import LinksRoute from '~/routes/Links';
 import TargetsRoute from '~/routes/Targets';
-import ExpandedLinkRoute from '~/routes/ExpandedLink';
+import LinkViewRoute from '~/routes/LinkView';
 
 export const createRoutes = () => ({
     path: '/',
@@ -16,7 +16,7 @@ export const createRoutes = () => ({
         LoginRoute,
         LinksRoute,
         TargetsRoute,
-        ExpandedLinkRoute,
+        LinkViewRoute,
     ],
 });
 

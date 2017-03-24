@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import auth from '~/data/auth';
 
-import ExpandedLinkView from '../components/ExpandedLinkView';
+import RecordView from '~/components/RecordView';
 
 export default class ExpandedLinkViewContainer extends React.Component {
     static contextTypes = {
@@ -13,6 +13,7 @@ export default class ExpandedLinkViewContainer extends React.Component {
         super(props, context);
         this.state = {
             editing: false,
+            originalLink: null,
             link: null,
         };
     }
@@ -24,28 +25,39 @@ export default class ExpandedLinkViewContainer extends React.Component {
     async getLink(linkId) {
         fetch(`${window.location.origin}/api/links?linkId=${linkId}`)
             .then((response => response.json()))
-            .then((links => this.setState({ link: links[0] })));
+            .then((links => this.setState({
+                link: links[0],
+                originalLink: { ...links[0] },
+            })));
     }
 
     async putLink(linkId) {
-        await fetch(
+        const response = await fetch(
             `${window.location.origin}/api/links?linkId=${linkId}`,
             {
                 headers: {
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
                 body: JSON.stringify(this.state.link),
             },
         );
-        console.log('yay');
+
+        if (response.status === 200) {
+            this.setState({ originalLink: { ...this.state.link } });
+        }
     }
 
     modifyLink = (property, value) => this.setState({
         link: Object.assign(this.state.link, {
             [property]: value,
         }),
+    });
+
+    cancelEditMode = () => this.setState({
+        editing: !this.state.editing,
+        link: { ...this.state.originalLink },
     });
 
     toggleEditMode = async () => {
@@ -65,12 +77,14 @@ export default class ExpandedLinkViewContainer extends React.Component {
 
         return (
             link ?
-                <ExpandedLinkView
-                    link={this.props.link || this.state.link}
+                <RecordView
+                    record={this.props.link || this.state.link}
                     logout={this.logout}
                     editing={this.state.editing}
+                    cancelEditMode={this.cancelEditMode}
                     toggleEditMode={this.toggleEditMode}
-                    modifyLink={this.modifyLink}
+                    modifyRecord={this.modifyLink}
+                    titleField={'article_url'}
                 /> : null
         );
     }
