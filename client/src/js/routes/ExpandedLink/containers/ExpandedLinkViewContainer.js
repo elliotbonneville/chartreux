@@ -27,13 +27,33 @@ export default class ExpandedLinkViewContainer extends React.Component {
             .then((links => this.setState({ link: links[0] })));
     }
 
+    async putLink(linkId) {
+        await fetch(
+            `${window.location.origin}/api/links?linkId=${linkId}`,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(this.state.link),
+            },
+        );
+        console.log('yay');
+    }
+
     modifyLink = (property, value) => this.setState({
         link: Object.assign(this.state.link, {
             [property]: value,
         }),
     });
 
-    toggleEditMode = () => this.setState({ editing: !this.state.editing });
+    toggleEditMode = async () => {
+        const wasEditing = this.state.editing;
+        this.setState({ editing: !this.state.editing });
+
+        if (wasEditing) await this.putLink(this.props.params.linkId);
+    };
 
     logout = () => {
         auth.logout();
