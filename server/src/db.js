@@ -7,13 +7,13 @@ const pool = mysql.createPool({
     database: 'oxmind_db',
 });
 
-export function query(queryString) {
+export function query(queryString, args = []) {
     return new Promise((resolve, reject) => {
         pool.getConnection((connectionError, connection) => {
             if (connectionError) {
                 reject(connectionError);
             } else {
-                connection.query(queryString, (queryError, results) => {
+                connection.query(queryString, args, (queryError, results) => {
                     connection.release();
                     if (queryError) reject(queryError);
                     else resolve(results);
