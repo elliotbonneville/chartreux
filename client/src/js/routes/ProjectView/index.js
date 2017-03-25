@@ -1,6 +1,8 @@
+import React from 'react';
+
 import auth from '~/data/auth';
 
-import ExpandedProjectViewContainer from './containers/ExpandedProjectViewContainer';
+import RecordViewContainer from '~/containers/RecordViewContainer';
 
 const requireAuth = (nextState, replace) => {
     if (!auth.loggedIn()) {
@@ -10,6 +12,11 @@ const requireAuth = (nextState, replace) => {
 
 export default {
     path: '/projects/:projectId',
-    component: ExpandedProjectViewContainer,
+    component: props =>
+        <RecordViewContainer
+            {...props}
+            recordType="project"
+            titleField="project"
+        />,
     onEnter: requireAuth,
 };

@@ -1,6 +1,8 @@
+import React from 'react';
+
 import auth from '~/data/auth';
 
-import ExpandedLinkViewContainer from './containers/ExpandedLinkViewContainer';
+import RecordViewContainer from '~/containers/RecordViewContainer';
 
 const requireAuth = (nextState, replace) => {
     if (!auth.loggedIn()) {
@@ -10,6 +12,11 @@ const requireAuth = (nextState, replace) => {
 
 export default {
     path: '/projects/:projectId/targets/:targetId/links/:linkId',
-    component: ExpandedLinkViewContainer,
+    component: props =>
+        <RecordViewContainer
+            {...props}
+            recordType="link"
+            titleField="article_url"
+        />,
     onEnter: requireAuth,
 };
