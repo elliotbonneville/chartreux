@@ -5,6 +5,7 @@ import {
     getById,
     getByTargetId,
     setById,
+    createLink,
 } from '../../models/link';
 
 const router = express.Router();
@@ -21,6 +22,13 @@ router.get('/', async (req, res) => {
     }
 
     res.send(links);
+});
+
+router.post('/new', async (req, res) => {
+    const dbResponse = await createLink(req.body);
+    res.send({
+        insertId: dbResponse.insertId,
+    });
 });
 
 router.post('/', async (req, res) => {

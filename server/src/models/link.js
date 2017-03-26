@@ -21,3 +21,10 @@ export async function getAll() {
 export async function setById(linkId, link) {
     return query('UPDATE links SET ? WHERE id = ?', [link, linkId]);
 }
+
+export async function createLink(data) {
+    const response = await query('INSERT INTO links () VALUES()');
+    const link = await getById(response.insertId);
+    await setById(response.insertId, Object.assign(link[0], data));
+    return response;
+}

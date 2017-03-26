@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Button } from 'react-bootstrap';
+import { Link, browserHistory } from 'react-router';
+import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
@@ -25,16 +25,37 @@ export default function LinksView(props) {
         });
     });
 
+    const createNewLink = async () => {
+        const response = await props.createNewLink({
+            project_id: props.params.projectId,
+            target_site_id: props.params.targetId,
+        });
+
+        const { insertId } = response;
+
+        browserHistory.push(`${window.location.pathname}/${insertId}?editing=true`);
+    };
+
     return (
-        <div>
-            <h2>Links</h2>
-            <RecordsTable columns={columns} records={links} />
-            <Button onClick={props.logout}>Logout</Button>
-        </div>
+        <Grid>
+            <Row style={{ paddingTop: 20 }}>
+                <h2 style={{ display: 'inline' }}>Links</h2>
+                <Button bsSize="medium" style={{ marginLeft: 10 }} onClick={createNewLink}>
+                    <Glyphicon glyph="plus" />
+                </Button>
+            </Row>
+            <Row>
+                <RecordsTable columns={columns} records={links} />
+            </Row>
+            <Row>
+                <Button onClick={props.logout}>Logout</Button>
+            </Row>
+        </Grid>
     );
 }
 
 LinksView.propTypes = {
     logout: PropTypes.func.isRequired,
     links: PropTypes.array.isRequired,
+    createNewLink: PropTypes.func.isRequired,
 };

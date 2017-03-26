@@ -16,11 +16,13 @@ export default class RecordViewContainer extends React.Component {
         record: React.PropTypes.object,
         recordType: React.PropTypes.string.isRequired,
         titleField: React.PropTypes.string,
+        cancelEditMode: React.PropTypes.func,
     }
 
     static defaultProps = {
         record: null,
         titleField: null,
+        cancelEditMode: null,
     }
 
     constructor(props, context) {
@@ -87,7 +89,7 @@ export default class RecordViewContainer extends React.Component {
                     record={this.props.record || this.state.record}
                     logout={this.logout}
                     editing={this.state.editing}
-                    cancelEditMode={this.cancelEditMode}
+                    cancelEditMode={this.props.cancelEditMode || this.cancelEditMode}
                     toggleEditMode={this.toggleEditMode}
                     modifyRecord={this.modifyRecord}
                     titleField={this.props.titleField}

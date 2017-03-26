@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import auth from '~/data/auth';
+import { put } from '~/utils/api';
 
 import LinksView from '../components/LinksView';
 
@@ -27,6 +28,10 @@ export default class LinksViewContainer extends React.Component {
             .then((links => this.setState({ links })));
     }
 
+    createNewLink(data) {
+        return put('/api/links/new', data);
+    }
+
     logout = () => {
         auth.logout();
         this.context.router.push('/login');
@@ -38,6 +43,7 @@ export default class LinksViewContainer extends React.Component {
                 params={this.props.params}
                 links={this.state.links}
                 logout={this.logout}
+                createNewLink={this.createNewLink}
             />
         );
     }
