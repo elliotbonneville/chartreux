@@ -13,7 +13,7 @@ export default function TargetsView(props) {
 
     const removeTarget = async (id) => {
         /* eslint-disable no-alert */
-        if (confirm('Are you sure you want to remove this link?')) {
+        if (confirm('Are you sure you want to remove this target?')) {
             await deleteRecord('target', id);
             props.removeTarget(id);
         }
