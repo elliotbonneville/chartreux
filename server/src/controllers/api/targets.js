@@ -1,6 +1,12 @@
 import express from 'express';
 
-import { getAllByProject, getById, setById, createTarget } from '../../models/target';
+import {
+    getAllByProject,
+    getById,
+    setById,
+    createTarget,
+    deleteById,
+} from '../../models/target';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
@@ -22,6 +28,11 @@ router.post('/new', async (req, res) => {
 router.post('/', async (req, res) => {
     await setById(req.query.targetId, req.body);
     res.status(200).send(`Updated target with ID ${req.query.targetid} successfully.`);
+});
+
+router.delete('/', async (req, res) => {
+    await deleteById(req.query.id);
+    res.sendStatus(200);
 });
 
 export default router;

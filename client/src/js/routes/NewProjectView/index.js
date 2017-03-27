@@ -14,10 +14,8 @@ const requireAuth = (nextState, replace) => {
 };
 
 async function createProject(data) {
-    console.log(data);
     const { insertId } = (await put('/api/projects/new', data).then(response => response.json()));
     const route = `/projects/${insertId}`;
-    console.log(route);
     browserHistory.push(route);
 }
 

@@ -1,6 +1,12 @@
 import express from 'express';
 
-import { getAllByUser, getByProjectId, setById, createProject } from '../../models/project';
+import {
+    getAllByUser,
+    getByProjectId,
+    setById,
+    createProject,
+    deleteById,
+} from '../../models/project';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
@@ -20,6 +26,11 @@ router.post('/new', async (req, res) => {
 router.post('/', async (req, res) => {
     await setById(req.query.projectId, req.body);
     res.status(200);
+});
+
+router.delete('/', async (req, res) => {
+    await deleteById(req.query.id);
+    res.sendStatus(200);
 });
 
 export default router;

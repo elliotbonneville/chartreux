@@ -27,6 +27,10 @@ export default class TargetsViewContainer extends React.Component {
             .then((targets => this.setState({ targets })));
     }
 
+    removeTarget = async id => this.setState({
+        targets: this.state.targets.filter(target => target.id !== id),
+    });
+
     logout = () => {
         auth.logout();
         this.context.router.push('/login');
@@ -34,7 +38,11 @@ export default class TargetsViewContainer extends React.Component {
 
     render() {
         return (
-            <TargetsView targets={this.state.targets} logout={this.logout} />
+            <TargetsView
+                targets={this.state.targets}
+                logout={this.logout}
+                removeTarget={this.removeTarget}
+            />
         );
     }
 }

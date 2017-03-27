@@ -1,35 +1,29 @@
 import React, { PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
+
+import { deleteRecord } from '~/utils/api';
 
 import RecordsTable from '~/components/RecordsTable';
 
-import linkModel from '~/data/models/link';
-
 export default function LinksView(props) {
+    const createNewLink = async () => {
+        browserHistory.push(`${window.location.pathname}/creating`);
+    };
+
+    const removeLink = async (id) => {
+        /* eslint-disable no-alert */
+        if (confirm('Are you sure you want to remove this link?')) {
+            await deleteRecord('link', id);
+            props.removeLink(id);
+        }
+        /* eslint-enable no-alert */
+    };
+
     const { links } = props;
     const columns = ['keyword_1_url', 'article_title', 'keyword_1', 'date_added']
         .map((name, id) => ({ name, id }))
         .filter(({ name }) => name !== 'user_id');
-
-    columns.push({ id: columns.length, name: 'edit' });
-
-    links.forEach((link) => {
-        const pathname = `${window.location.pathname}/${link.id}`;
-        const editDescriptor = {
-            pathname,
-            query: { editing: true },
-        };
-
-        Object.assign(link, {
-            keyword_1_url: <Link to={pathname}>{link.keyword_1_url}</Link>,
-            edit: <Link to={editDescriptor}>edit</Link>,
-        });
-    });
-
-    const createNewLink = async () => {
-        browserHistory.push(`${window.location.pathname}/creating`);
-    };
 
     return (
         <Grid>
@@ -40,7 +34,12 @@ export default function LinksView(props) {
                 </Button>
             </Row>
             <Row>
-                <RecordsTable columns={columns} records={links} />
+                <RecordsTable
+                    columns={columns}
+                    records={links}
+                    linkField="keyword_1_url"
+                    removeRecord={removeLink}
+                />
             </Row>
             <Row>
                 <Button onClick={props.logout}>Logout</Button>
@@ -52,5 +51,4 @@ export default function LinksView(props) {
 LinksView.propTypes = {
     logout: PropTypes.func.isRequired,
     links: PropTypes.array.isRequired,
-    createNewLink: PropTypes.func.isRequired,
 };

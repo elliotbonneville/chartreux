@@ -25,3 +25,10 @@ export async function createTarget(data) {
         insertId: response.insertId,
     };
 }
+
+export function deleteById(id) {
+    return Promise.all([
+        query(`DELETE FROM target_sites WHERE id="${id}"`),
+        query(`DELETE FROM links WHERE target_site_id="${id}"`),
+    ]);
+}

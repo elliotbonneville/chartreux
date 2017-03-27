@@ -6,6 +6,7 @@ import {
     getByTargetId,
     setById,
     createLink,
+    deleteById,
 } from '../../models/link';
 
 const router = express.Router();
@@ -31,6 +32,11 @@ router.post('/new', async (req, res) => {
 router.post('/', async (req, res) => {
     await setById(req.query.linkId, req.body);
     res.status(200);
+});
+
+router.delete('/', async (req, res) => {
+    await deleteById(req.query.id);
+    res.sendStatus(200);
 });
 
 export default router;

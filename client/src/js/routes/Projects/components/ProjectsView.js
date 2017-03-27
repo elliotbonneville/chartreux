@@ -1,25 +1,23 @@
 import React, { PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
+import { deleteRecord } from '~/utils/api';
+
 export default function ProjectsView(props) {
+    const archiveProject = async (id) => {
+        /* eslint-disable no-alert */
+        if (confirm('Are you sure you want to retire this project?')) {
+            await deleteRecord('project', id);
+            props.updateProject(id);
+        }
+        /* eslint-enable no-alert */
+    };
+
     const { projects } = props;
-    const columns = Object.keys(projects[0] || []).map((name, id) => ({ name, id }));
-    columns.push({ id: columns.length, name: 'edit' });
-
-    projects.forEach((project) => {
-        const editDescriptor = {
-            pathname: `/projects/${project.id}`,
-            query: { editing: true },
-        };
-
-        Object.assign(project, {
-            project: <Link to={`/projects/${project.id}/targets`}>{project.project}</Link>,
-            edit: <Link to={editDescriptor}>edit</Link>,
-        });
-    });
+    const columns = Object.keys(projects[0] || {}).map((name, id) => ({ name, id }));
 
     const createNewProject = async () => {
         browserHistory.push(`${window.location.pathname}/creating`);
@@ -34,7 +32,13 @@ export default function ProjectsView(props) {
                 </Button>
             </Row>
             <Row>
-                <RecordsTable columns={columns} records={projects} />
+                <RecordsTable
+                    columns={columns}
+                    records={projects}
+                    linkField="project"
+                    getChildrenPath={project => `${window.location.pathname}/${project.id}/targets`}
+                    removeRecord={archiveProject}
+                />
             </Row>
             <Row>
                 <Button onClick={props.logout}>Logout</Button>

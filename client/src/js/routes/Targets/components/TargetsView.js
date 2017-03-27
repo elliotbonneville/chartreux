@@ -1,28 +1,27 @@
 import React, { PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button, Row, Grid, Glyphicon } from 'react-bootstrap';
+
+import { deleteRecord } from '~/utils/api';
 
 import RecordsTable from '~/components/RecordsTable';
 
 export default function TargetsView(props) {
-    const { targets } = props;
-    const columns = Object.keys(targets[0] || []).map((name, id) => ({ name, id }));
-    targets.forEach((target) => {
-        const editDescriptor = {
-            pathname: `/projects/${target.project_id}/targets/${target.id}`,
-            query: { editing: true },
-        };
-
-        Object.assign(target, {
-            site_name: <Link to={`/projects/${target.project_id}/targets/${target.id}/links`}>{target.site_name}</Link>,
-            edit: <Link to={editDescriptor}>edit</Link>,
-        });
-    });
-    columns.push({ id: columns.length, name: 'edit' });
-
     const createNewTarget = async () => {
         browserHistory.push(`${window.location.pathname}/creating`);
     };
+
+    const removeTarget = async (id) => {
+        /* eslint-disable no-alert */
+        if (confirm('Are you sure you want to remove this link?')) {
+            await deleteRecord('target', id);
+            props.removeTarget(id);
+        }
+        /* eslint-enable no-alert */
+    };
+
+    const { targets } = props;
+    const columns = Object.keys(targets[0] || []).map((name, id) => ({ name, id }));
 
     return (
         <Grid>
@@ -33,7 +32,13 @@ export default function TargetsView(props) {
                 </Button>
             </Row>
             <Row>
-                <RecordsTable columns={columns} records={targets} />
+                <RecordsTable
+                    columns={columns}
+                    records={targets}
+                    linkField="site_name"
+                    getChildrenPath={target => `${window.location.pathname}/${target.id}/links`}
+                    removeRecord={removeTarget}
+                />
             </Row>
             <Row>
                 <Button onClick={props.logout}>Logout</Button>

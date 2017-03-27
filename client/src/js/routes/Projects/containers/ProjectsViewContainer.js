@@ -27,6 +27,17 @@ export default class ProjectsViewContainer extends React.Component {
             .then((projects => this.setState({ projects })));
     }
 
+    updateProject = async id =>
+        fetch(`${window.location.origin}/api/projects?projectId=${id}}`)
+            .then((response => response.json()))
+            .then((project) => {
+                const { projects } = this.state;
+                projects[projects.findIndex(record => record.id === id)] = project[0];
+                this.setState({
+                    projects: [...projects],
+                });
+            });
+
     logout = () => {
         auth.logout();
         this.context.router.push('/login');
@@ -37,6 +48,7 @@ export default class ProjectsViewContainer extends React.Component {
             <ProjectsView
                 projects={this.state.projects}
                 logout={this.logout}
+                updateProject={this.updateProject}
             />
         );
     }

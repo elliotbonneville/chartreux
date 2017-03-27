@@ -16,3 +16,12 @@ export async function put(route, data) {
         },
     );
 }
+
+export async function deleteRecord(recordType, id) {
+    return fetch(
+        `${window.location.origin}/api/${recordType}s?id=${id}`,
+        {
+            method: 'DELETE',
+        },
+    );
+}

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 
 import auth from '~/data/auth';
-import { put } from '~/utils/api';
 
 import LinksView from '../components/LinksView';
 
@@ -28,9 +27,9 @@ export default class LinksViewContainer extends React.Component {
             .then((links => this.setState({ links })));
     }
 
-    createNewLink(data) {
-        return put('/api/links/new', data);
-    }
+    removeLink = async id => this.setState({
+        links: this.state.links.filter(link => link.id !== id),
+    });
 
     logout = () => {
         auth.logout();
@@ -43,7 +42,7 @@ export default class LinksViewContainer extends React.Component {
                 params={this.props.params}
                 links={this.state.links}
                 logout={this.logout}
-                createNewLink={this.createNewLink}
+                removeLink={this.removeLink}
             />
         );
     }

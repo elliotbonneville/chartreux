@@ -25,3 +25,7 @@ export async function createProject(data) {
         insertId: response.insertId,
     };
 }
+
+export function deleteById(id) {
+    return query(`UPDATE projects SET ? WHERE id="${id}"`, [{ archive: 'y' }, id]);
+}
