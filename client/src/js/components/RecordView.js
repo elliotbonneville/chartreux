@@ -24,7 +24,7 @@ export default function RecordView(props) {
                     {editing ? 'Save' : 'Edit'}
                 </Button>
             </ButtonGroup>
-            {editing ? <Button onClick={props.cancelEditMode}>Cancel</Button> : null}
+            {editing ? <Button onClick={props.onCancel}>Cancel</Button> : null}
             <Grid>
                 {columns.map(colNames =>
                     <Row>

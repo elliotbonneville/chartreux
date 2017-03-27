@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Link, browserHistory } from 'react-router';
+import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
@@ -21,16 +21,25 @@ export default function ProjectsView(props) {
         });
     });
 
+    const createNewProject = async () => {
+        browserHistory.push(`${window.location.pathname}/creating`);
+    };
+
     return (
-        <div>
-            <Row>
-                <Col xs={6} md={3}>
-                    <h2>Projects</h2>
-                    <RecordsTable columns={columns} records={projects} />
-                    <Button onClick={props.logout}>Logout</Button>
-                </Col>
+        <Grid>
+            <Row style={{ paddingTop: 20 }}>
+                <h2 style={{ display: 'inline' }}>Projects</h2>
+                <Button bsSize="medium" style={{ marginLeft: 10 }} onClick={createNewProject}>
+                    <Glyphicon glyph="plus" />
+                </Button>
             </Row>
-        </div>
+            <Row>
+                <RecordsTable columns={columns} records={projects} />
+            </Row>
+            <Row>
+                <Button onClick={props.logout}>Logout</Button>
+            </Row>
+        </Grid>
     );
 }
 

@@ -17,3 +17,11 @@ export async function getAll() {
 export async function setById(targetId, target) {
     return query('UPDATE target_sites SET ? WHERE id = ?', [target, targetId]);
 }
+
+export async function createTarget(data) {
+    const response = await query('INSERT INTO target_sites () VALUES()');
+    await setById(response.insertId, data);
+    return {
+        insertId: response.insertId,
+    };
+}

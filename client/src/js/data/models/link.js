@@ -1,0 +1,17 @@
+export default {
+    project: null,
+    project_id: null,
+    target_site_id: null,
+    target_site: null,
+    pbn_name: null,
+    pbn_url: null,
+    article_title: null,
+    author: null,
+    serp_pos: null,
+    rsos: null,
+    indexed: null,
+    keyword_2: null,
+    authority_url: null,
+    video: null,
+    interlinked: null,
+};

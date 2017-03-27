@@ -1,11 +1,14 @@
 import CoreLayout from '~/layouts/CoreLayout';
+import NewProjectViewRoute from '~/routes/NewProjectView';
 import ProjectViewRoute from '~/routes/ProjectView';
 import ProjectsRoute from '~/routes/Projects';
 import LoginRoute from '~/routes/Login';
+import NewLinkRoute from '~/routes/NewLinkView';
 import LinksRoute from '~/routes/Links';
+import LinkViewRoute from '~/routes/LinkView';
+import NewTargetViewRoute from '~/routes/NewTargetView';
 import TargetViewRoute from '~/routes/TargetView';
 import TargetsRoute from '~/routes/Targets';
-import LinkViewRoute from '~/routes/LinkView';
 
 export const createRoutes = () => ({
     path: '/',
@@ -15,10 +18,13 @@ export const createRoutes = () => ({
     },
     childRoutes: [
         LoginRoute,
+        NewProjectViewRoute,
         ProjectViewRoute,
         ProjectsRoute,
+        NewLinkRoute,
         LinkViewRoute,
         LinksRoute,
+        NewTargetViewRoute,
         TargetViewRoute,
         TargetsRoute,
     ],

@@ -4,6 +4,8 @@ import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
+import linkModel from '~/data/models/link';
+
 export default function LinksView(props) {
     const { links } = props;
     const columns = ['keyword_1_url', 'article_title', 'keyword_1', 'date_added']
@@ -26,14 +28,7 @@ export default function LinksView(props) {
     });
 
     const createNewLink = async () => {
-        const response = await props.createNewLink({
-            project_id: props.params.projectId,
-            target_site_id: props.params.targetId,
-        });
-
-        const { insertId } = response;
-
-        browserHistory.push(`${window.location.pathname}/${insertId}?editing=true`);
+        browserHistory.push(`${window.location.pathname}/creating`);
     };
 
     return (

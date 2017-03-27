@@ -14,5 +14,5 @@ export async function put(route, data) {
             method: 'POST',
             body: JSON.stringify(data),
         },
-    ).then((response => response.json()));
+    );
 }

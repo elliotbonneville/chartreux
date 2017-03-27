@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Button } from 'react-bootstrap';
+import { Link, browserHistory } from 'react-router';
+import { Button, Row, Grid, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
@@ -20,12 +20,25 @@ export default function TargetsView(props) {
     });
     columns.push({ id: columns.length, name: 'edit' });
 
+    const createNewTarget = async () => {
+        browserHistory.push(`${window.location.pathname}/creating`);
+    };
+
     return (
-        <div>
-            <h2>Targets</h2>
-            <RecordsTable columns={columns} records={targets} />
-            <Button onClick={props.logout}>Logout</Button>
-        </div>
+        <Grid>
+            <Row style={{ paddingTop: 20 }}>
+                <h2 style={{ display: 'inline' }}>Targets</h2>
+                <Button bsSize="medium" style={{ marginLeft: 10 }} onClick={createNewTarget}>
+                    <Glyphicon glyph="plus" />
+                </Button>
+            </Row>
+            <Row>
+                <RecordsTable columns={columns} records={targets} />
+            </Row>
+            <Row>
+                <Button onClick={props.logout}>Logout</Button>
+            </Row>
+        </Grid>
     );
 }
 

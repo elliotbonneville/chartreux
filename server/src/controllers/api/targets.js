@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getAllByProject, getById, setById } from '../../models/target';
+import { getAllByProject, getById, setById, createTarget } from '../../models/target';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
@@ -13,6 +13,10 @@ router.get('/', async (req, res) => {
     }
 
     res.send(links);
+});
+
+router.post('/new', async (req, res) => {
+    res.send(await createTarget(req.body));
 });
 
 router.post('/', async (req, res) => {

@@ -17,3 +17,11 @@ export async function getAll() {
 export async function setById(projectId, project) {
     return query('UPDATE projects SET ? WHERE id = ?', [project, projectId]);
 }
+
+export async function createProject(data) {
+    const response = await query('INSERT INTO projects () VALUES()');
+    await setById(response.insertId, data);
+    return {
+        insertId: response.insertId,
+    };
+}

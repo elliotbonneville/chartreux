@@ -11,32 +11,41 @@ export default class RecordViewContainer extends React.Component {
     }
 
     static propTypes = {
+        editing: React.PropTypes.bool,
         location: React.PropTypes.object.isRequired,
         params: React.PropTypes.object.isRequired,
         record: React.PropTypes.object,
         recordType: React.PropTypes.string.isRequired,
         titleField: React.PropTypes.string,
-        cancelEditMode: React.PropTypes.func,
+        onCancel: React.PropTypes.func,
     }
 
     static defaultProps = {
+        editing: false,
         record: null,
         titleField: null,
-        cancelEditMode: null,
+        onCancel: null,
     }
 
     constructor(props, context) {
         super(props, context);
+        const { editing } = this.props.location.query;
+        const { record } = props;
         this.state = {
-            editing: this.props.location.query.editing || false,
-            originalRecord: null,
-            record: null,
+            editing: editing || props.editing || false,
+            record: record || null,
+            originalRecord: record ? { ...record } : null,
         };
     }
 
     componentDidMount() {
-        this.getRecord(this.props.params[`${this.props.recordType}Id`]);
+        if (!this.props.record) this.getRecord(this.props.params[`${this.props.recordType}Id`]);
     }
+
+    onCancel = () => this.setState({
+        editing: !this.state.editing,
+        record: { ...this.state.originalRecord },
+    });
 
     async getRecord(id) {
         const recordType = this.props.recordType;
@@ -63,16 +72,17 @@ export default class RecordViewContainer extends React.Component {
         });
     }
 
-    cancelEditMode = () => this.setState({
-        editing: !this.state.editing,
-        record: { ...this.state.originalRecord },
-    });
-
     toggleEditMode = async () => {
         const wasEditing = this.state.editing;
         this.setState({ editing: !this.state.editing });
 
-        if (wasEditing) await this.putRecord(this.props.params[`${this.props.recordType}Id`]);
+        if (wasEditing) {
+            if (this.props.onSave) {
+                this.props.onSave(this.state.record);
+            } else {
+                await this.putRecord(this.props.params[`${this.props.recordType}Id`]);
+            }
+        }
     };
 
     logout = () => {
@@ -86,10 +96,10 @@ export default class RecordViewContainer extends React.Component {
         return (
             record ?
                 <RecordView
-                    record={this.props.record || this.state.record}
+                    record={this.state.record}
                     logout={this.logout}
                     editing={this.state.editing}
-                    cancelEditMode={this.props.cancelEditMode || this.cancelEditMode}
+                    onCancel={this.props.onCancel || this.onCancel}
                     toggleEditMode={this.toggleEditMode}
                     modifyRecord={this.modifyRecord}
                     titleField={this.props.titleField}
