@@ -55,7 +55,7 @@ module.exports = {
         ],
     },
     output: {
-        path: 'dist/',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'app.bundle.js',
     },
     plugins: [
