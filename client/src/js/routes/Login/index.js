@@ -11,5 +11,5 @@ const preventUnneededAuth = (nextState, replace) => {
 export default {
     path: '/login',
     component: Login,
-    // onEnter: preventUnneededAuth,
+    onEnter: preventUnneededAuth,
 };
