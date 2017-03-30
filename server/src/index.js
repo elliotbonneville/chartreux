@@ -8,7 +8,7 @@ const app = express();
 const server = http.Server(app);
 
 const port = process.env.PORT || 8080;
-
+console.log(port);
 app.use(
     express.static(
         path.join(__dirname, '../../client/dist/'),
