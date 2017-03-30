@@ -7,6 +7,8 @@ import apiRoutes from './controllers/api';
 const app = express();
 const server = http.Server(app);
 
+const port = process.env.PORT || 8080;
+
 app.use(
     express.static(
         path.join(__dirname, '../../client/dist/'),
@@ -21,7 +23,10 @@ app.get('*', (req, res) => {
     );
 });
 
-server.listen(
-    '8080',
-    console.log.bind('Example app listening on port 8080'),
-);
+/* eslint-disable no-console*/
+server.listen(port, console.log.bind(`App running on port ${port}.`));
+/* eslint-enable no-console*/
+
+export default {
+    port,
+};
