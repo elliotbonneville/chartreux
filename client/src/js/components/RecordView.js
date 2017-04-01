@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Button, ButtonGroup, Grid, Row } from 'react-bootstrap';
 
 import RecordField from './RecordField';
@@ -43,3 +43,17 @@ export default function RecordView(props) {
         </div>
     );
 }
+
+RecordView.propTypes = {
+    record: PropTypes.object.isRequired,
+    editing: PropTypes.bool,
+    titleField: PropTypes.string.isRequired,
+    toggleEditMode: PropTypes.func,
+    onCancel: PropTypes.func,
+};
+
+RecordView.defaultProps = {
+    editing: false,
+    toggleEditMode: () => {},
+    onCancel: () => {},
+};

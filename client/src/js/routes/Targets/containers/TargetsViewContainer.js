@@ -9,6 +9,10 @@ export default class TargetsViewContainer extends React.Component {
         router: PropTypes.object,
     }
 
+    propTypes = {
+        params: PropTypes.object.isRequired,
+    }
+
     constructor(props, context) {
         super(props, context);
         this.state = {

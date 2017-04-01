@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import { Link } from 'react-router';
 import { Table, Button } from 'react-bootstrap';
@@ -53,3 +53,8 @@ export default function RecordTable(props) {
         </Table>
     );
 }
+
+RecordTable.propTypes = {
+    columns: PropTypes.array.isRequired,
+    records: PropTypes.array.isRequired,
+};
