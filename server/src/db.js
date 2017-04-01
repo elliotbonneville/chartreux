@@ -1,10 +1,10 @@
 import mysql from 'mysql';
 
 const pool = mysql.createPool({
-    host: 'oxmind.cuypuqkjhqol.us-east-2.rds.amazonaws.com',
-    user: 'oxbowdev',
-    password: 'Ysnp!1955',
-    database: 'oxmind_db',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 });
 
 export function query(queryString, args = []) {
