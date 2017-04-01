@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 
 import auth from '~/data/auth';
 
+import { get } from '~/utils/api';
+
 import ProjectsView from '../components/ProjectsView';
 
 export default class ProjectsViewContainer extends React.Component {
@@ -22,14 +24,12 @@ export default class ProjectsViewContainer extends React.Component {
     }
 
     async getProjects() {
-        fetch(`${window.location.origin}/api/projects?userId=${this.state.userId}`)
-            .then((response => response.json()))
-            .then((projects => this.setState({ projects })));
+        get(`/api/projects?userId=${this.state.userId}`)
+            .then(projects => this.setState({ projects }));
     }
 
     updateProject = async id =>
-        fetch(`${window.location.origin}/api/projects?projectId=${id}}`)
-            .then((response => response.json()))
+        get(`/api/projects?projectId=${id}}`)
             .then((project) => {
                 const { projects } = this.state;
                 projects[projects.findIndex(record => record.id === id)] = project[0];

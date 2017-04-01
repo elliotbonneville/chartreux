@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 
 import auth from '~/data/auth';
 
+import { get } from '~/utils/api';
+
 import TargetsView from '../components/TargetsView';
 
 export default class TargetsViewContainer extends React.Component {
@@ -26,8 +28,7 @@ export default class TargetsViewContainer extends React.Component {
     }
 
     async getTargets(projectId) {
-        fetch(`${window.location.origin}/api/targets?projectId=${projectId}`)
-            .then((response => response.json()))
+        get(`/api/targets?projectId=${projectId}`)
             .then((targets => this.setState({ targets })));
     }
 

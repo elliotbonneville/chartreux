@@ -1,6 +1,7 @@
 export async function get(route) {
-    return fetch(`${window.location.origin}${route}`)
-        .then((response => response.json()));
+    return fetch(`${window.location.origin}${route}`, {
+        credentials: 'include',
+    }).then((response => response.json()));
 }
 
 export async function put(route, data) {
@@ -13,6 +14,7 @@ export async function put(route, data) {
             },
             method: 'POST',
             body: JSON.stringify(data),
+            credentials: 'include',
         },
     );
 }
@@ -22,6 +24,7 @@ export async function deleteRecord(recordType, id) {
         `${window.location.origin}/api/${recordType}s?id=${id}`,
         {
             method: 'DELETE',
+            credentials: 'include',
         },
     );
 }

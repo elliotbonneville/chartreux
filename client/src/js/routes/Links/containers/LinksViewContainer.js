@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 
 import auth from '~/data/auth';
 
+import { get } from '~/utils/api';
+
 import LinksView from '../components/LinksView';
 
 export default class LinksViewContainer extends React.Component {
@@ -26,8 +28,7 @@ export default class LinksViewContainer extends React.Component {
     }
 
     async getLinks(targetId) {
-        fetch(`${window.location.origin}/api/links?targetId=${targetId}`)
-            .then((response => response.json()))
+        get(`/api/links?targetId=${targetId}`)
             .then((links => this.setState({ links })));
     }
 
