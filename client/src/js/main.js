@@ -10,6 +10,8 @@ import 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 
+import '~/../css/main.css';
+
 import { browserHistory } from 'react-router';
 
 import AppContainer from '~/containers/AppContainer.react';
