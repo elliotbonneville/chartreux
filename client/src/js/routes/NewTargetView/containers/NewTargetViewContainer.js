@@ -7,8 +7,8 @@ import targetModel from '~/data/models/target';
 import RecordViewContainer from '~/containers/RecordViewContainer';
 
 async function createProject(data) {
-    const { insertId } = (await put('/api/targets/new', data).then(response => response.json()));
-    const route = `/targets/${insertId}`;
+    const { id } = (await put('/api/targets/new', data).then(response => response.json()));
+    const route = `/targets/${id}`;
     browserHistory.push(route);
 }
 

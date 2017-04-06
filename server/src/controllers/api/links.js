@@ -1,41 +1,55 @@
 import express from 'express';
 
-import {
-    getAllByProject,
-    getById,
-    getByTargetId,
-    setById,
-    createLink,
-    deleteById,
-} from '../../models/link';
+import { link } from '../../../models';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
     let links;
+    const { projectId, linkId, targetId } = req.query;
 
     if (req.query.projectId) {
-        links = await getAllByProject(req.query.projectId);
+        links = await link.findAll({
+            where: {
+                project_id: projectId,
+            },
+        });
     } else if (req.query.linkId) {
-        links = await getById(req.query.linkId);
+        links = await link.find({
+            where: {
+                id: linkId,
+            },
+        });
     } else if (req.query.targetId) {
-        links = await getByTargetId(req.query.targetId);
+        links = await link.findAll({
+            where: {
+                target_site_id: targetId,
+            },
+        });
     }
 
     res.send(links);
 });
 
-router.post('/new', async (req, res) => {
-    res.send(await createLink(req.body));
-});
+router.post('/new', async (req, res) =>
+    link.build(req.body).save().then(::res.send),
+);
 
 router.post('/', async (req, res) => {
-    await setById(req.query.linkId, req.body);
-    res.status(200);
+    await link.update(
+        req.body,
+        { where: { id: req.query.linkId } },
+    );
+
+    res.sendStatus(200);
 });
 
 router.delete('/', async (req, res) => {
-    await deleteById(req.query.id);
+    link.destroy({
+        where: {
+            id: req.query.id,
+        },
+    });
     res.sendStatus(200);
 });
 

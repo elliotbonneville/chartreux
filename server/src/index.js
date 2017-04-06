@@ -4,6 +4,7 @@ import http from 'http';
 
 import auth from 'basic-auth';
 
+import models from '../models';
 import apiRoutes from './controllers/api';
 
 const app = express();
@@ -41,6 +42,12 @@ app.get('*', (req, res) => {
 
 /* eslint-disable no-console*/
 server.listen(port, console.log.bind(`App running on port ${port}.`));
+
+models.sequelize
+    .authenticate()
+    .then(() => console.log('Connection successful'))
+    .catch(error => console.log('Error creacting connection', error));
+
 /* eslint-enable no-console*/
 
 export default {

@@ -7,8 +7,8 @@ import linkModel from '~/data/models/link';
 import RecordViewContainer from '~/containers/RecordViewContainer';
 
 async function createLink(data) {
-    const { insertId } = (await put('/api/links/new', data).then(response => response.json()));
-    const route = `/projects/${data.project_id}/targets/${data.target_site_id}/links/${insertId}`;
+    const { id } = (await put('/api/links/new', data).then(response => response.json()));
+    const route = `/projects/${data.project_id}/targets/${data.target_site_id}/links/${id}`;
     browserHistory.push(route);
 }
 

@@ -49,7 +49,7 @@ export default class RecordViewContainer extends React.Component {
 
     async getRecord(id) {
         const recordType = this.props.recordType;
-        const record = (await get(`/api/${recordType}s?${recordType}Id=${id}`))[0];
+        const record = (await get(`/api/${recordType}s?${recordType}Id=${id}`));
         this.setState({
             record,
             originalRecord: { ...record },

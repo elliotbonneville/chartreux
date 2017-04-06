@@ -1,37 +1,47 @@
 import express from 'express';
 
-import {
-    getAllByProject,
-    getById,
-    setById,
-    createTarget,
-    deleteById,
-} from '../../models/target';
+import { target } from '../../../models';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
     let links;
-
-    if (req.query.projectId) {
-        links = await getAllByProject(req.query.projectId);
-    } else if (req.query.targetId) {
-        links = await getById(req.query.targetId);
+    const { projectId, targetId } = req.query;
+    if (projectId) {
+        links = await target.findAll({
+            where: {
+                project_id: projectId,
+            },
+        });
+    } else if (targetId) {
+        links = await target.find({
+            where: {
+                id: targetId,
+            },
+        });
     }
 
     res.send(links);
 });
 
-router.post('/new', async (req, res) => {
-    res.send(await createTarget(req.body));
-});
+router.post('/new', async (req, res) =>
+    target.build(req.body).save().then(::res.send),
+);
 
 router.post('/', async (req, res) => {
-    await setById(req.query.targetId, req.body);
-    res.status(200).send(`Updated target with ID ${req.query.targetid} successfully.`);
+    await target.update(
+        req.body,
+        { where: { id: req.query.targetId } },
+    );
+
+    res.sendStatus(200);
 });
 
 router.delete('/', async (req, res) => {
-    await deleteById(req.query.id);
+    target.destroy({
+        where: {
+            id: req.query.id,
+        },
+    });
     res.sendStatus(200);
 });
 
