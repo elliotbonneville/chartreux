@@ -1,35 +1,45 @@
 import express from 'express';
 
-import {
-    getAllByUser,
-    getByProjectId,
-    setById,
-    createProject,
-    deleteById,
-} from '../../models/project';
+import { project } from '../../../models';
 
 const router = express.Router();
 router.get('/', async (req, res) => {
     let projects;
-    if (req.query.userId) {
-        projects = await getAllByUser(req.query.userId);
-    } else if (req.query.projectId) {
-        projects = await getByProjectId(req.query.projectId);
+    const { userId, projectId } = req.query;
+    if (userId) {
+        projects = await project.findAll({
+            where: {
+                user_id: userId,
+            },
+        });
+    } else if (projectId) {
+        projects = await project.find({
+            where: {
+                id: projectId,
+            },
+        });
     }
     res.send(projects);
 });
 
-router.post('/new', async (req, res) => {
-    res.send(await createProject(req.body));
-});
+router.post('/new', async (req, res) =>
+    project.build(req.body).save().then(::res.send),
+);
 
 router.post('/', async (req, res) => {
-    await setById(req.query.projectId, req.body);
-    res.status(200);
+    await project.update(
+        req.body,
+        { where: { id: req.query.projectId } },
+    );
+
+    res.sendStatus(200);
 });
 
 router.delete('/', async (req, res) => {
-    await deleteById(req.query.id);
+    await project.update(
+        { archive: 'y' },
+        { where: { id: req.query.projectId } },
+    );
     res.sendStatus(200);
 });
 
