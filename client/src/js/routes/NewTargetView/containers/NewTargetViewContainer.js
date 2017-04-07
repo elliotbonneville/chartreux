@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router';
 
 import { put } from '~/utils/api';
 import targetModel from '~/data/models/target';
-
 import RecordViewContainer from '~/containers/RecordViewContainer';
 
 async function createProject(data) {
@@ -21,8 +20,11 @@ export default function NewTargetViewContainer(props) {
             titleField="url"
             onCancel={browserHistory.goBack}
             onSave={createProject}
+            fieldNames={targetModel}
             record={{
-                ...targetModel,
+                ...Object.keys(targetModel).reduce(
+                    (acc, key) => Object.assign(acc, { [key]: null }), {},
+                ),
                 project_id: props.params.projectId,
             }}
         />

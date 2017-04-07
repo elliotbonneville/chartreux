@@ -34,6 +34,13 @@ export default function TargetsView(props) {
             <Row>
                 <RecordsTable
                     columns={columns}
+                    columnNames={{
+                        site_name: 'Name',
+                        url: 'URL',
+                        site_host: 'Host',
+                        site_type: 'Type',
+                        desc: 'Description',
+                    }}
                     records={targets}
                     linkField="site_name"
                     getChildrenPath={target => `${window.location.pathname}/${target.id}/links`}

@@ -21,8 +21,11 @@ export default function NewLinkViewContainer(props) {
             titleField="article_url"
             onCancel={browserHistory.goBack}
             onSave={createLink}
+            fieldNames={linkModel}
             record={{
-                ...linkModel,
+                ...Object.keys(linkModel).reduce(
+                    (acc, key) => Object.assign(acc, { [key]: null }), {},
+                ),
                 project_id: props.params.projectId,
                 target_site_id: props.params.targetId,
             }}

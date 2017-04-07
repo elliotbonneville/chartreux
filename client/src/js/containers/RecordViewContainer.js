@@ -11,20 +11,21 @@ export default class RecordViewContainer extends React.Component {
     }
 
     static propTypes = {
+        fieldNames: React.PropTypes.object.isRequired,
         editing: React.PropTypes.bool,
         location: React.PropTypes.object.isRequired,
+        onCancel: React.PropTypes.func,
         params: React.PropTypes.object.isRequired,
         record: React.PropTypes.object,
         recordType: React.PropTypes.string.isRequired,
         titleField: React.PropTypes.string,
-        onCancel: React.PropTypes.func,
     }
 
     static defaultProps = {
         editing: false,
+        onCancel: null,
         record: null,
         titleField: null,
-        onCancel: null,
     }
 
     constructor(props, context) {
@@ -103,6 +104,7 @@ export default class RecordViewContainer extends React.Component {
                     toggleEditMode={this.toggleEditMode}
                     modifyRecord={this.modifyRecord}
                     titleField={this.props.titleField}
+                    fieldNames={this.props.fieldNames}
                 /> : null
         );
     }
