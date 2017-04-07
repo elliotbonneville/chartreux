@@ -36,6 +36,12 @@ export default function LinksView(props) {
             <Row>
                 <RecordsTable
                     columns={columns}
+                    columnNames={{
+                        keyword_1_url: 'Anchor Text',
+                        article_title: 'Page Title',
+                        keyword_1: 'Keyword',
+                        date_added: 'Date Added',
+                    }}
                     records={links}
                     linkField="keyword_1_url"
                     removeRecord={removeLink}

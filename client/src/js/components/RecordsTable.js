@@ -3,8 +3,11 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Table, Button } from 'react-bootstrap';
 
-export default function RecordTable(props) {
-    const { columns, records } = props;
+export default function RecordsTable(props) {
+    const { columnNames, records } = props;
+    let { columns } = props;
+    const allowedColumns = Object.keys(columnNames);
+    columns = columns.filter(column => allowedColumns.indexOf(column.name) > -1);
 
     records.forEach((record) => {
         const pathname = props.getChildrenPath
@@ -21,7 +24,7 @@ export default function RecordTable(props) {
             <thead>
                 <tr>
                     {columns.map(column =>
-                        <th key={column.id}>{column.name}</th>,
+                        <th key={column.id}>{columnNames[column.name]}</th>,
                     )}
                     <th>edit</th>
                     <th>delete</th>
@@ -54,7 +57,8 @@ export default function RecordTable(props) {
     );
 }
 
-RecordTable.propTypes = {
+RecordsTable.propTypes = {
     columns: PropTypes.array.isRequired,
+    columnNames: PropTypes.object.isRequired,
     records: PropTypes.array.isRequired,
 };

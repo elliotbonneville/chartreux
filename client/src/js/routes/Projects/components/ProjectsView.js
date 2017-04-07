@@ -34,6 +34,10 @@ export default function ProjectsView(props) {
             <Row>
                 <RecordsTable
                     columns={columns}
+                    columnNames={{
+                        project: 'Name',
+                        creation_date: 'Creation Date',
+                    }}
                     records={projects}
                     linkField="project"
                     getChildrenPath={project => `${window.location.pathname}/${project.id}/targets`}
