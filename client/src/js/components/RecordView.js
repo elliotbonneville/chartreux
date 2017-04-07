@@ -4,8 +4,13 @@ import { Button, ButtonGroup, Grid, Row } from 'react-bootstrap';
 import RecordField from './RecordField';
 
 export default function RecordView(props) {
-    const { record, editing } = props;
-    const fields = Object.keys(record);
+    const { record, fieldNames, editing } = props;
+    const allowedFieldNames = Object
+        .keys(fieldNames)
+        .filter(name => fieldNames[name]);
+    const fields = Object
+        .keys(record)
+        .filter(field => allowedFieldNames.indexOf(field) > -1);
     const columns = fields.reduce((acc, cur, i) => {
         const column = { name: cur, id: i };
         if (i % 2 === 0) {
@@ -31,6 +36,7 @@ export default function RecordView(props) {
                         {colNames.map(col =>
                             <RecordField
                                 key={col.id}
+                                displayProperty={fieldNames[col.name]}
                                 property={col.name}
                                 value={record[col.name]}
                                 editing={editing}
@@ -46,6 +52,7 @@ export default function RecordView(props) {
 
 RecordView.propTypes = {
     record: PropTypes.object.isRequired,
+    fieldNames: PropTypes.object.isRequired,
     editing: PropTypes.bool,
     titleField: PropTypes.string.isRequired,
     toggleEditMode: PropTypes.func,

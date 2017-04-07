@@ -5,6 +5,7 @@ import { Col } from 'react-bootstrap';
 export default function RecordField(props) {
     const {
         editing,
+        displayProperty,
         property,
         value,
         modifyRecord,
@@ -20,12 +21,13 @@ export default function RecordField(props) {
 
     return (
         <Col xs={12} md={6} style={{ height: 35 }}>
-            <strong>{property}</strong>: {valueComponent}
+            <strong>{displayProperty}</strong>: {valueComponent}
         </Col>
     );
 }
 
 RecordField.propTypes = {
+    displayProperty: PropTypes.string.isRequired,
     editing: PropTypes.bool,
     property: PropTypes.string.isRequired,
     value: PropTypes.string,

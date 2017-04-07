@@ -29,8 +29,11 @@ export default {
             titleField="project"
             onCancel={browserHistory.goBack}
             onSave={createProject}
+            fieldNames={projectModel}
             record={{
-                ...projectModel,
+                ...Object.keys(projectModel).reduce(
+                    (acc, key) => Object.assign(acc, { [key]: null }), {},
+                ),
                 user_id: auth.getProfile().sub,
             }}
         />,
