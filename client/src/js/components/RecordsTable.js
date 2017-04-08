@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 
 import { Link } from 'react-router';
 import { Table, Button } from 'react-bootstrap';
@@ -16,6 +17,16 @@ export default function RecordsTable(props) {
 
         Object.assign(record, {
             [props.linkField]: <Link to={pathname}>{record[props.linkField]}</Link>,
+        });
+
+        // if there are any dates stored on this record, parse them with Moment
+        Object.keys(record).forEach((field) => {
+            const date = moment(record[field], 'YYYY-MM-DDT00:00:00.000Z', true);
+            if (date.isValid()) {
+                Object.assign(record, {
+                    [field]: date.format('MM/DD/YYYY'),
+                });
+            }
         });
     });
 

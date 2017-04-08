@@ -1,6 +1,8 @@
+import { TEXT, DATE } from './fieldTypes';
+
 export default {
     user_id: null,
-    project: 'Name',
-    creation_date: 'Creation Date',
+    project: [TEXT, 'Name'],
+    creation_date: [DATE, 'Creation Date'],
     archive: null,
 };

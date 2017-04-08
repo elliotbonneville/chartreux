@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 
 import { Col } from 'react-bootstrap';
 
@@ -7,14 +8,20 @@ export default function RecordField(props) {
         editing,
         displayProperty,
         property,
-        value,
         modifyRecord,
     } = props;
+
+    let { value } = props;
+
+    const date = moment(value, 'YYYY-MM-DDT00:00:00.000Z', true);
+
+    if (date.isValid()) {
+        value = date.format('MM/DD/YYYY');
+    }
 
     if (typeof property === 'undefined') return null;
 
     const onChange = event => modifyRecord(property, event.target.value);
-
     const valueComponent = editing
         ? <input type="text" value={value} onChange={onChange} />
         : value;
