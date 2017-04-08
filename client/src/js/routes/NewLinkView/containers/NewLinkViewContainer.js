@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 
 import { put } from '~/utils/api';
-import linkModel from '~/data/models/link';
+import Link from '~/data/models/link';
 
 import RecordViewContainer from '~/containers/RecordViewContainer';
 
@@ -17,13 +17,29 @@ export default function NewLinkViewContainer(props) {
         <RecordViewContainer
             {...props}
             editing
+            fields={[
+                'pbn_name',
+                'pbn_url',
+                'article_title',
+                'article_url',
+                'author',
+                'date_added',
+                'keyword_1',
+                'do_follow',
+                'indexed',
+                'keyword_1_url',
+                'authority_url',
+                'image',
+                'video',
+                'done',
+            ]}
             recordType="link"
             titleField="article_url"
             onCancel={browserHistory.goBack}
             onSave={createLink}
-            fieldNames={linkModel}
+            model={Link}
             record={{
-                ...Object.keys(linkModel).reduce(
+                ...Object.keys(Link).reduce(
                     (acc, key) => Object.assign(acc, { [key]: null }), {},
                 ),
                 project_id: props.params.projectId,

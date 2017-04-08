@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 
 import { put } from '~/utils/api';
-import targetModel from '~/data/models/target';
+import Target from '~/data/models/target';
 import RecordViewContainer from '~/containers/RecordViewContainer';
 
 async function createProject(data) {
@@ -16,13 +16,21 @@ export default function NewTargetViewContainer(props) {
         <RecordViewContainer
             {...props}
             editing
+            fields={[
+                'site_name',
+                'url',
+                'site_host',
+                'site_type',
+                'site_date',
+                'desc',
+            ]}
             recordType="target"
             titleField="url"
             onCancel={browserHistory.goBack}
             onSave={createProject}
-            fieldNames={targetModel}
+            model={Target}
             record={{
-                ...Object.keys(targetModel).reduce(
+                ...Object.keys(Target).reduce(
                     (acc, key) => Object.assign(acc, { [key]: null }), {},
                 ),
                 project_id: props.params.projectId,

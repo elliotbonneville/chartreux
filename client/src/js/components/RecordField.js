@@ -1,42 +1,61 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
-
 import { Col } from 'react-bootstrap';
 
-export default function RecordField(props) {
-    const {
-        editing,
-        displayProperty,
-        property,
-        modifyRecord,
-    } = props;
+import { serializeField, deserializeField } from '~/data/models/fields';
 
-    let { value } = props;
-
-    const date = moment(value, 'YYYY-MM-DDT00:00:00.000Z', true);
-
-    if (date.isValid()) {
-        value = date.format('MM/DD/YYYY');
+export default class RecordField extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: deserializeField(this.props.field, props.value),
+        };
     }
 
-    if (typeof property === 'undefined') return null;
+    componentWillReceiveProps(nextProps) {
+        const { value } = nextProps;
+        if (typeof value !== 'undefined') {
+            this.setState({
+                value: deserializeField(this.props.field, value),
+            });
+        }
+    }
 
-    const onChange = event => modifyRecord(property, event.target.value);
-    const valueComponent = editing
-        ? <input type="text" value={value} onChange={onChange} />
-        : value;
+    onBlur = (event) => {
+        const { field, fieldName } = this.props;
+        this.props.modifyRecord(fieldName, serializeField(field, event.target.value));
+    };
 
-    return (
-        <Col xs={12} md={6} style={{ height: 35 }}>
-            <strong>{displayProperty}</strong>: {valueComponent}
-        </Col>
-    );
+    onChange = (event) => {
+        this.setState({
+            value: event.target.value,
+        });
+    }
+
+    render() {
+        const {
+            editing,
+            field,
+            fieldName,
+        } = this.props;
+
+        if (typeof fieldName === 'undefined') return null;
+
+        const valueComponent = editing
+            ? <input type="text" value={this.state.value} onBlur={this.onBlur} onChange={this.onChange} />
+            : this.state.value;
+
+        return (
+            <Col xs={12} md={6} style={{ height: 35 }}>
+                <strong>{field[1]}</strong>: {valueComponent}
+            </Col>
+        );
+    }
 }
 
 RecordField.propTypes = {
-    displayProperty: PropTypes.string.isRequired,
     editing: PropTypes.bool,
-    property: PropTypes.string.isRequired,
+    field: PropTypes.array.isRequired,
+    fieldName: PropTypes.string.isRequired,
     value: PropTypes.string,
     modifyRecord: PropTypes.func,
 };

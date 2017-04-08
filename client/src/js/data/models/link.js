@@ -1,4 +1,4 @@
-import { TEXT, DATE, BOOL } from './fieldTypes';
+import { TEXT, DATE, BOOL } from './fields';
 
 export default {
     project: null,

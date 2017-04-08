@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 
 import { Link } from 'react-router';
 import { Table, Button } from 'react-bootstrap';
 
-import { DATE } from '~/data/models/fieldTypes';
+import { deserializeField } from '~/data/models/fields';
 
 export default function RecordsTable(props) {
     const { records, model } = props;
@@ -22,12 +21,9 @@ export default function RecordsTable(props) {
         // if there are any dates stored on this record, parse them with Moment
         Object.keys(record).forEach((field) => {
             if (!model[field]) return;
-            if (model[field][0] === DATE) {
-                const date = moment(record[field], 'YYYY-MM-DDT00:00:00.000Z', true);
-                Object.assign(record, {
-                    [field]: date.format('MM/DD/YYYY'),
-                });
-            }
+            Object.assign(record, {
+                [field]: deserializeField(model[field], record[field]),
+            });
         });
     });
 

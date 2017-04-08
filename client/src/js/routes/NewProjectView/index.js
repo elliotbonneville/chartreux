@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 
 import { put } from '~/utils/api';
 import auth from '~/data/auth';
-import projectModel from '~/data/models/project';
+import Project from '~/data/models/project';
 
 import RecordViewContainer from '~/containers/RecordViewContainer';
 
@@ -25,13 +25,17 @@ export default {
         <RecordViewContainer
             {...props}
             editing
+            fields={[
+                'project',
+                'creation_date',
+            ]}
             recordType="project"
             titleField="project"
             onCancel={browserHistory.goBack}
             onSave={createProject}
-            fieldNames={projectModel}
+            model={Project}
             record={{
-                ...Object.keys(projectModel).reduce(
+                ...Object.keys(Project).reduce(
                     (acc, key) => Object.assign(acc, { [key]: null }), {},
                 ),
                 user_id: auth.getProfile().sub,

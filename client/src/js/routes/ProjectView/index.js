@@ -2,7 +2,7 @@ import React from 'react';
 
 import auth from '~/data/auth';
 import RecordViewContainer from '~/containers/RecordViewContainer';
-import projectModel from '~/data/models/project';
+import Project from '~/data/models/project';
 
 const requireAuth = (nextState, replace) => {
     if (!auth.loggedIn()) {
@@ -15,9 +15,13 @@ export default {
     component: props =>
         <RecordViewContainer
             {...props}
+            fields={[
+                'project',
+                'creation_date',
+            ]}
             recordType="project"
             titleField="project"
-            fieldNames={projectModel}
+            model={Project}
         />,
     onEnter: requireAuth,
 };
