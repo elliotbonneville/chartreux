@@ -1,4 +1,2 @@
-export default {
-    TEXT: 0,
-    DATE: 1,
-};
+export const TEXT = 0;
+export const DATE = 1;

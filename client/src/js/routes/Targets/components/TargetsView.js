@@ -5,6 +5,7 @@ import { Button, Row, Grid, Glyphicon } from 'react-bootstrap';
 import { deleteRecord } from '~/utils/api';
 
 import RecordsTable from '~/components/RecordsTable';
+import Target from '~/data/models/target';
 
 export default function TargetsView(props) {
     const createNewTarget = async () => {
@@ -21,7 +22,6 @@ export default function TargetsView(props) {
     };
 
     const { targets } = props;
-    const columns = Object.keys(targets[0] || []).map((name, id) => ({ name, id }));
 
     return (
         <Grid>
@@ -33,14 +33,8 @@ export default function TargetsView(props) {
             </Row>
             <Row>
                 <RecordsTable
-                    columns={columns}
-                    columnNames={{
-                        site_name: 'Name',
-                        url: 'URL',
-                        site_host: 'Host',
-                        site_type: 'Type',
-                        desc: 'Description',
-                    }}
+                    columns={['site_name', 'url', 'site_host', 'site_type', 'desc']}
+                    model={Target}
                     records={targets}
                     linkField="site_name"
                     getChildrenPath={target => `${window.location.pathname}/${target.id}/links`}
@@ -57,4 +51,5 @@ export default function TargetsView(props) {
 TargetsView.propTypes = {
     logout: PropTypes.func.isRequired,
     targets: PropTypes.array.isRequired,
+    removeTarget: PropTypes.func.isRequired,
 };

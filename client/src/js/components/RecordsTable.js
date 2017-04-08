@@ -4,11 +4,11 @@ import moment from 'moment';
 import { Link } from 'react-router';
 import { Table, Button } from 'react-bootstrap';
 
+import { DATE } from '~/data/models/fieldTypes';
+
 export default function RecordsTable(props) {
-    const { columnNames, records } = props;
-    let { columns } = props;
-    const allowedColumns = Object.keys(columnNames);
-    columns = columns.filter(column => allowedColumns.indexOf(column.name) > -1);
+    const { records, model } = props;
+    const columns = props.columns.map((name, id) => ({ name, id }));
 
     records.forEach((record) => {
         const pathname = props.getChildrenPath
@@ -21,8 +21,9 @@ export default function RecordsTable(props) {
 
         // if there are any dates stored on this record, parse them with Moment
         Object.keys(record).forEach((field) => {
-            const date = moment(record[field], 'YYYY-MM-DDT00:00:00.000Z', true);
-            if (date.isValid()) {
+            if (!model[field]) return;
+            if (model[field][0] === DATE) {
+                const date = moment(record[field], 'YYYY-MM-DDT00:00:00.000Z', true);
                 Object.assign(record, {
                     [field]: date.format('MM/DD/YYYY'),
                 });
@@ -35,7 +36,7 @@ export default function RecordsTable(props) {
             <thead>
                 <tr>
                     {columns.map(column =>
-                        <th key={column.id}>{columnNames[column.name]}</th>,
+                        <th key={column.id}>{model[column.name][1]}</th>,
                     )}
                     <th>edit</th>
                     <th>delete</th>
@@ -70,6 +71,6 @@ export default function RecordsTable(props) {
 
 RecordsTable.propTypes = {
     columns: PropTypes.array.isRequired,
-    columnNames: PropTypes.object.isRequired,
     records: PropTypes.array.isRequired,
+    model: PropTypes.object.isRequired,
 };
