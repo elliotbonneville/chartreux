@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
+import { Button, Row, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
@@ -23,9 +23,8 @@ export default function ProjectsView(props) {
     };
 
     return (
-        <Grid>
-            <Row style={{ paddingTop: 20 }}>
-                <h2 style={{ display: 'inline' }}>Projects</h2>
+        <div>
+            <Row>
                 <Button bsSize="medium" style={{ marginLeft: 10 }} onClick={createNewProject}>
                     <Glyphicon glyph="plus" />
                 </Button>
@@ -43,7 +42,7 @@ export default function ProjectsView(props) {
             <Row>
                 <Button onClick={props.logout}>Logout</Button>
             </Row>
-        </Grid>
+        </div>
     );
 }
 

@@ -18,6 +18,7 @@ export default class TargetsViewContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            project: {},
             targets: [],
             userId: auth.getProfile().sub,
         };
@@ -28,8 +29,12 @@ export default class TargetsViewContainer extends React.Component {
     }
 
     async getTargets(projectId) {
-        get(`/api/targets?projectId=${projectId}`)
-            .then((targets => this.setState({ targets })));
+        const targets = await get(`/api/targets?projectId=${projectId}`);
+        const project = await get(`/api/projects?projectId=${projectId}`);
+        this.setState({
+            targets,
+            project,
+        });
     }
 
     removeTarget = async id => this.setState({
@@ -45,6 +50,7 @@ export default class TargetsViewContainer extends React.Component {
         return (
             <TargetsView
                 targets={this.state.targets}
+                project={this.state.project}
                 logout={this.logout}
                 removeTarget={this.removeTarget}
             />

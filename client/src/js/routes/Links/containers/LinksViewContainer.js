@@ -19,6 +19,8 @@ export default class LinksViewContainer extends React.Component {
         super(props, context);
         this.state = {
             links: [],
+            project: {},
+            target: {},
             projectId: 0,
         };
     }
@@ -28,8 +30,18 @@ export default class LinksViewContainer extends React.Component {
     }
 
     async getLinks(targetId) {
-        get(`/api/links?targetId=${targetId}`)
-            .then((links => this.setState({ links })));
+        let links;
+        let project;
+        const target = await get(`/api/targets?targetId=${targetId}`);
+        await Promise.all([
+            get(`/api/links?targetId=${targetId}`).then(data => (links = data)),
+            get(`/api/projects?projectId=${target.project_id}`).then(data => (project = data)),
+        ]);
+        this.setState({
+            links,
+            target,
+            project,
+        });
     }
 
     removeLink = async id => this.setState({
@@ -46,6 +58,8 @@ export default class LinksViewContainer extends React.Component {
             <LinksView
                 params={this.props.params}
                 links={this.state.links}
+                target={this.state.target}
+                project={this.state.project}
                 logout={this.logout}
                 removeLink={this.removeLink}
             />
