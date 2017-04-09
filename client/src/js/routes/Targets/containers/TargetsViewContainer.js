@@ -29,11 +29,8 @@ export default class TargetsViewContainer extends React.Component {
     }
 
     async getTargets(projectId) {
-        const targets = await get(`/api/targets?projectId=${projectId}`);
-        const project = await get(`/api/projects?projectId=${projectId}`);
         this.setState({
-            targets,
-            project,
+            targets: await get(`/api/targets?projectId=${projectId}`),
         });
     }
 
@@ -50,7 +47,7 @@ export default class TargetsViewContainer extends React.Component {
         return (
             <TargetsView
                 targets={this.state.targets}
-                project={this.state.project}
+                recordCount={this.state.targets.length}
                 logout={this.logout}
                 removeTarget={this.removeTarget}
             />

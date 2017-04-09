@@ -57,6 +57,7 @@ export default class LinksViewContainer extends React.Component {
         return (
             <LinksView
                 params={this.props.params}
+                recordCount={this.state.links.length}
                 links={this.state.links}
                 target={this.state.target}
                 project={this.state.project}

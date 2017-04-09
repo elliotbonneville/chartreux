@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Row, Glyphicon } from 'react-bootstrap';
+import { Button, Row, Col, Glyphicon } from 'react-bootstrap';
 
 import RecordsTable from '~/components/RecordsTable';
 
@@ -25,9 +25,14 @@ export default function ProjectsView(props) {
     return (
         <div>
             <Row>
-                <Button bsSize="medium" style={{ marginLeft: 10 }} onClick={createNewProject}>
-                    <Glyphicon glyph="plus" />
-                </Button>
+                <Col xs={12} md={1}>
+                    <Button bsSize="medium" onClick={createNewProject}>
+                        <Glyphicon glyph="plus" />
+                    </Button>
+                </Col>
+                <Col xs={12} md={1}>
+                    <h2 style={{ display: 'inline' }}>{props.recordCount}</h2>
+                </Col>
             </Row>
             <Row>
                 <RecordsTable
