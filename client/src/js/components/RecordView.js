@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button, ButtonGroup, Grid, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Row } from 'react-bootstrap';
 
 import RecordField from './RecordField';
 
@@ -18,31 +18,28 @@ export default function RecordView(props) {
     }, []);
 
     return (
-        <div>
-            <h2>{record[props.titleField]}</h2>
+        <Row>
             <ButtonGroup>
                 <Button onClick={props.toggleEditMode}>
                     {editing ? 'Save' : 'Edit'}
                 </Button>
             </ButtonGroup>
             {editing ? <Button onClick={props.onCancel}>Cancel</Button> : null}
-            <Grid>
-                {columns.map(colNames =>
-                    <Row>
-                        {colNames.map(col =>
-                            <RecordField
-                                key={col.id}
-                                field={model[col.name]}
-                                fieldName={col.name}
-                                value={record[col.name]}
-                                editing={editing}
-                                modifyRecord={props.modifyRecord}
-                            />,
-                        )}
-                    </Row>,
-                )}
-            </Grid>
-        </div>
+            {columns.map(colNames =>
+                <Row>
+                    {colNames.map(col =>
+                        <RecordField
+                            key={col.id}
+                            field={model[col.name]}
+                            fieldName={col.name}
+                            value={record[col.name]}
+                            editing={editing}
+                            modifyRecord={props.modifyRecord}
+                        />,
+                    )}
+                </Row>,
+            )}
+        </Row>
     );
 }
 
@@ -52,7 +49,6 @@ RecordView.propTypes = {
     model: PropTypes.object.isRequired,
     onCancel: PropTypes.func,
     record: PropTypes.object.isRequired,
-    titleField: PropTypes.string.isRequired,
     toggleEditMode: PropTypes.func,
 };
 

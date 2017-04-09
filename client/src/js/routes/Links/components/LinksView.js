@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Grid, Row, Glyphicon } from 'react-bootstrap';
+import { Button, Row, Glyphicon } from 'react-bootstrap';
 
 import { deleteRecord } from '~/utils/api';
 
 import RecordsTable from '~/components/RecordsTable';
-import Link from '~/data/models/link';
+import LinkModel from '~/data/models/link';
 
 export default function LinksView(props) {
     const createNewLink = async () => {
@@ -21,11 +21,12 @@ export default function LinksView(props) {
         /* eslint-enable no-alert */
     };
 
+    const { links, logout } = props;
+
     return (
-        <Grid>
-            <Row style={{ paddingTop: 20 }}>
-                <h2 style={{ display: 'inline' }}>Links</h2>
-                <Button bsSize="medium" style={{ marginLeft: 10 }} onClick={createNewLink}>
+        <div>
+            <Row>
+                <Button bsSize="medium" onClick={createNewLink}>
                     <Glyphicon glyph="plus" />
                 </Button>
             </Row>
@@ -33,15 +34,15 @@ export default function LinksView(props) {
                 <RecordsTable
                     columns={['keyword_1_url', 'article_title', 'keyword_1', 'date_added']}
                     linkField="keyword_1_url"
-                    model={Link}
-                    records={props.links}
+                    model={LinkModel}
+                    records={links}
                     removeRecord={removeLink}
                 />
             </Row>
             <Row>
-                <Button onClick={props.logout}>Logout</Button>
+                <Button onClick={logout}>Logout</Button>
             </Row>
-        </Grid>
+        </div>
     );
 }
 
