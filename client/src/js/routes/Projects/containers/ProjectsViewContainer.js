@@ -47,6 +47,7 @@ export default class ProjectsViewContainer extends React.Component {
         return (
             <ProjectsView
                 projects={this.state.projects}
+                recordCount={this.state.projects.length}
                 logout={this.logout}
                 updateProject={this.updateProject}
             />

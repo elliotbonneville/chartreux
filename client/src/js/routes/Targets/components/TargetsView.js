@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Row, Glyphicon } from 'react-bootstrap';
+import { Button, Row, Col, Glyphicon } from 'react-bootstrap';
 
 import { deleteRecord } from '~/utils/api';
 
@@ -21,14 +21,19 @@ export default function TargetsView(props) {
         /* eslint-enable no-alert */
     };
 
-    const { targets, project } = props;
+    const { targets } = props;
 
     return (
         <div>
             <Row>
-                <Button bsSize="medium" onClick={createNewTarget}>
-                    <Glyphicon glyph="plus" />
-                </Button>
+                <Col xs={12} md={1}>
+                    <Button bsSize="medium" onClick={createNewTarget}>
+                        <Glyphicon glyph="plus" />
+                    </Button>
+                </Col>
+                <Col xs={12} md={1}>
+                    <h2 style={{ display: 'inline' }}>{props.recordCount}</h2>
+                </Col>
             </Row>
             <Row>
                 <RecordsTable
@@ -50,6 +55,6 @@ export default function TargetsView(props) {
 TargetsView.propTypes = {
     logout: PropTypes.func.isRequired,
     targets: PropTypes.array.isRequired,
-    project: PropTypes.object.isRequired,
+    recordCount: PropTypes.number.isRequired,
     removeTarget: PropTypes.func.isRequired,
 };

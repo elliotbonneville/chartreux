@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Row, Glyphicon } from 'react-bootstrap';
+import { Button, Row, Col, Glyphicon } from 'react-bootstrap';
 
 import { deleteRecord } from '~/utils/api';
 
@@ -26,9 +26,14 @@ export default function LinksView(props) {
     return (
         <div>
             <Row>
-                <Button bsSize="medium" onClick={createNewLink}>
-                    <Glyphicon glyph="plus" />
-                </Button>
+                <Col xs={12} md={1}>
+                    <Button bsSize="medium" onClick={createNewLink}>
+                        <Glyphicon glyph="plus" />
+                    </Button>
+                </Col>
+                <Col xs={12} md={1}>
+                    <h2 style={{ display: 'inline' }}>{props.recordCount}</h2>
+                </Col>
             </Row>
             <Row>
                 <RecordsTable
@@ -50,4 +55,5 @@ LinksView.propTypes = {
     logout: PropTypes.func.isRequired,
     links: PropTypes.array.isRequired,
     removeLink: PropTypes.func.isRequired,
+    recordCount: PropTypes.number.isRequired,
 };
