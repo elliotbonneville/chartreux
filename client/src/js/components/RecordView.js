@@ -4,13 +4,9 @@ import { Button, ButtonGroup, Grid, Row } from 'react-bootstrap';
 import RecordField from './RecordField';
 
 export default function RecordView(props) {
-    const { record, fieldNames, editing } = props;
-    const allowedFieldNames = Object
-        .keys(fieldNames)
-        .filter(name => fieldNames[name]);
-    const fields = Object
-        .keys(record)
-        .filter(field => allowedFieldNames.indexOf(field) > -1);
+    const { record, fields, model, editing } = props;
+
+    // Calculate distribution of fields to columns
     const columns = fields.reduce((acc, cur, i) => {
         const column = { name: cur, id: i };
         if (i % 2 === 0) {
@@ -36,8 +32,8 @@ export default function RecordView(props) {
                         {colNames.map(col =>
                             <RecordField
                                 key={col.id}
-                                displayProperty={fieldNames[col.name]}
-                                property={col.name}
+                                field={model[col.name]}
+                                fieldName={col.name}
                                 value={record[col.name]}
                                 editing={editing}
                                 modifyRecord={props.modifyRecord}
@@ -51,12 +47,13 @@ export default function RecordView(props) {
 }
 
 RecordView.propTypes = {
-    record: PropTypes.object.isRequired,
-    fieldNames: PropTypes.object.isRequired,
     editing: PropTypes.bool,
+    fields: PropTypes.array.isRequired,
+    model: PropTypes.object.isRequired,
+    onCancel: PropTypes.func,
+    record: PropTypes.object.isRequired,
     titleField: PropTypes.string.isRequired,
     toggleEditMode: PropTypes.func,
-    onCancel: PropTypes.func,
 };
 
 RecordView.defaultProps = {

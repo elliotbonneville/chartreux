@@ -6,6 +6,8 @@ import RecordsTable from '~/components/RecordsTable';
 
 import { deleteRecord } from '~/utils/api';
 
+import Project from '~/data/models/project';
+
 export default function ProjectsView(props) {
     const archiveProject = async (id) => {
         /* eslint-disable no-alert */
@@ -15,9 +17,6 @@ export default function ProjectsView(props) {
         }
         /* eslint-enable no-alert */
     };
-
-    const { projects } = props;
-    const columns = Object.keys(projects[0] || {}).map((name, id) => ({ name, id }));
 
     const createNewProject = async () => {
         browserHistory.push(`${window.location.pathname}/creating`);
@@ -33,12 +32,9 @@ export default function ProjectsView(props) {
             </Row>
             <Row>
                 <RecordsTable
-                    columns={columns}
-                    columnNames={{
-                        project: 'Name',
-                        creation_date: 'Creation Date',
-                    }}
-                    records={projects}
+                    columns={['project', 'creation_date']}
+                    model={Project}
+                    records={props.projects}
                     linkField="project"
                     getChildrenPath={project => `${window.location.pathname}/${project.id}/targets`}
                     removeRecord={archiveProject}

@@ -1,9 +1,11 @@
+import { TEXT, DATE } from './fields';
+
 export default {
     project_id: null,
-    site_name: 'Name',
-    url: 'URL',
-    site_host: 'Host',
-    site_type: 'Type',
-    site_date: 'Creation Date',
-    desc: 'Description',
+    site_name: [TEXT, 'Name'],
+    url: [TEXT, 'URL'],
+    site_host: [TEXT, 'Host'],
+    site_type: [TEXT, 'Type'],
+    site_date: [DATE, 'Creation Date'],
+    desc: [TEXT, 'Description'],
 };
